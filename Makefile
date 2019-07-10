@@ -25,6 +25,6 @@ ALL:=
 .PHONY: all
 all: $(ALL)
 
-.PHONY: install_scripts
-install_scripts:
-	$(Q)scripts/install_scripts.py
+.PHONY: install
+install:
+	$(Q)scripts/install.py
