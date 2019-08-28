@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# This is based on:
+# https://github.com/ptarjan/viencrypt/blob/master/viencrypt
+
 filename="passwords.gpg"
 if [ $EDITOR ]
 then
