@@ -11,7 +11,7 @@ my_name=${my_name%.*}
 # -n: no swap file will be used
 # -i NONE: no .viminfo file updates
 editor="vim -n -i NONE"
-key_id="65B7114A96AAC816475A9032ABDA3525723CE7AE"
+source $HOME/.config/encrypt.sh
 
 filename="passwords.gpg"
 if [ $# -eq 0 ]
