@@ -6,7 +6,10 @@ utils_hibernate_disable.sh
 # update youtube-dl
 youtube-dl -U
 youtube-dl\
-	https://www.youtube.com/playlist?list=PLZHKR1yYunFQ3ciN2kHYg5y7YjKZUjMey\
+#	saw finished
+#	https://www.youtube.com/playlist?list=PLZHKR1yYunFQ3ciN2kHYg5y7YjKZUjMey\
+#	saw
+	https://www.youtube.com/playlist?list=PLZHKR1yYunFR7sXhq3hA89NLRLoFcEwmR\
 	--continue\
 	--ignore-errors\
 	--playlist-end 120
