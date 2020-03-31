@@ -37,7 +37,7 @@ fi
 
 if [ ! -f $filename ]
 then
-    echo "$filename doesn't exist. Starting from empty file."
+    echo "$filename doesn't exist."
     exit 1
 elif [ ! -r $filename ]
 then
