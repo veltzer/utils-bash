@@ -35,8 +35,6 @@ else
     rm='rm'
 fi
 
-tmp=`mktemp --tmpdir=$HOME/tmp -t $my_name.XXXXXXXXXX` || exit 1
-
 if [ ! -f $filename ]
 then
     echo "$filename doesn't exist. Starting from empty file."
@@ -45,11 +43,9 @@ elif [ ! -r $filename ]
 then
     echo "$filename isn't readable."
     exit 2
-elif [ ! -w $filename ]
-then
-    echo "$filename isn't writable."
-    exit 3
 fi
+
+tmp=`mktemp --tmpdir=$HOME/tmp -t $my_name.XXXXXXXXXX` || exit 1
 
 # decrypt into the tmp file
 gpg --quiet --decrypt --default-key $key --batch $filename > $tmp
