@@ -26,5 +26,4 @@ find . \
 -or -name "*.qt" \
 -or -name "*.mp4" \
 -or -name "*.VOB" \
--or -name "*.m3u" \
 \) > playlist.m3u
