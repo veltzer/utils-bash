@@ -27,4 +27,4 @@ all: $(ALL)
 
 .PHONY: install
 install:
-	$(Q)scripts/install.py
+	$(Q)pymakehelper symlink_install --source_folder src --target_folder ~/install/bin
