@@ -7,7 +7,6 @@ This script finds all files under the current folder which are not video files.
 COMMENT
 
 find . \
--mindepth 2 \
 -type f \
 -and -not -name "*.avi" \
 -and -not -name "*.flv" \
