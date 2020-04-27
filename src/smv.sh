@@ -10,10 +10,10 @@ References:
 
 COMMENT
 
-if [ "$#" -ne 1 ] || [ ! -e "$1" ]
+if [ "$#" -ne 1 ]
 then
-	command mv "$@"
-	return
+	echo "$0: use with only one argument"
+	exit 1
 fi
 
 read -ei "$1" newfilename
