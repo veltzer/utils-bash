@@ -10,11 +10,15 @@ References:
 
 COMMENT
 
-if [ "$#" -ne 1 ]
+if [ "$#" -eq 0 ]
 then
-	echo "$0: use with only one argument"
+	echo "$0: use with at least one argument"
 	exit 1
 fi
 
-read -ei "$1" newfilename
-command mv -v -- "$1" "$newfilename"
+for var in "$@"
+do
+	read -ei "$var" newfilename
+	command mv -v -- "$var" "$newfilename"
+done
+
