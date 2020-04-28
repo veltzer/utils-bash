@@ -3,10 +3,25 @@
 <<'COMMENT'
 
 This script finds all files under the current folder which are not video files.
+You can pass a depth parameter to it
 
 COMMENT
 
+if [ "$#" -gt 1 ]
+then
+	echo "$0: use with at most one argument"
+	exit 1
+fi
+
+if [ "$#" -eq 0 ]
+then
+	depth=1
+else
+	depth=$1
+fi
+
 find . \
+-mindepth $depth \
 -type f \
 -and -not -name "*.avi" \
 -and -not -name "*.flv" \
@@ -24,4 +39,6 @@ find . \
 -and -not -name "*.qt" \
 -and -not -name "*.mp4" \
 -and -not -name "*.VOB" \
+-and -not -name "*.MTS" \
+-and -not -name "*.webm" \
 -and -not -name "*.m3u"
