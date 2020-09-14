@@ -11,5 +11,11 @@ References:
 
 COMMENT
 
-docker container kill $(docker ps -q)
-docker container rm $(docker container ls -q)
+for x in $(docker ps -q)
+do
+	docker kill "$x"
+done
+for x in $(docker container ls --all -q)
+do
+	docker container rm "$x"
+done

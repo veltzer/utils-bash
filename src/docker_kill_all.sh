@@ -9,4 +9,7 @@ References:
 
 COMMENT
 
-docker container kill $(docker ps -q)
+for x in $(docker ps -q)
+do
+	docker kill "$x"
+done

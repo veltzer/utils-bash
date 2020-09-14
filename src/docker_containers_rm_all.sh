@@ -7,4 +7,7 @@ Use with care.
 
 COMMENT
 
-docker container rm $(docker container ls -q)
+for x in $(docker container ls --all -q)
+do
+	docker container rm "$x"
+done
