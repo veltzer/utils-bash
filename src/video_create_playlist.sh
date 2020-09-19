@@ -10,20 +10,21 @@ find . \
 -type f \
 -and \
 \( \
--name "*.avi" \
--or -name "*.flv" \
--or -name "*.wmv" \
--or -name "*.mpg" \
--or -name "*.asf" \
--or -name "*.mpeg" \
--or -name "*.rm" \
--or -name "*.mov" \
--or -name "*.mkv" \
--or -name "*.3gp" \
--or -name "*.ram" \
--or -name "*.m4v" \
--or -name "*.rmvb" \
--or -name "*.qt" \
--or -name "*.mp4" \
--or -name "*.VOB" \
+-iname "*.avi" \
+-or -iname "*.flv" \
+-or -iname "*.wmv" \
+-or -iname "*.mpg" \
+-or -iname "*.asf" \
+-or -iname "*.mpeg" \
+-or -iname "*.rm" \
+-or -iname "*.mov" \
+-or -iname "*.mkv" \
+-or -iname "*.3gp" \
+-or -iname "*.ram" \
+-or -iname "*.m4v" \
+-or -iname "*.rmvb" \
+-or -iname "*.qt" \
+-or -iname "*.mp4" \
+-or -iname "*.VOB" \
+-or -iname "*.vid" \
 \) > playlist.m3u
