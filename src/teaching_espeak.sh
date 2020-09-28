@@ -11,7 +11,7 @@ dec=$2
 desc=$3
 while [[ $sec -gt 0 ]]; do
 	espeak "there are $sec second to end of $desc"
-	sleep $dec
-	let "sec=sec-dec"
+	sleep "$dec"
+	(( sec=sec-dec ))
 done
 espeak "the $desc is over!"

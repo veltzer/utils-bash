@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script shuts down pulse audio so you can do recording sessions
 

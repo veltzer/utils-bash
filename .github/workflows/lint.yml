@@ -1,0 +1,14 @@
+name: lint
+on:
+  push:
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: deps
+        run: apt install shellcheck
+      - name: lint
+        run: make

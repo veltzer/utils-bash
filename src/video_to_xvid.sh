@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script converts videos given to it to the xvid codec, IN PLACE,
 this means it replaces the original files...
@@ -13,7 +13,7 @@ OVC=xvid
 OAC=mp3lame
 # this prefix is used for various purposes but I mainly use it to make the encoding process
 # nice because it takes lots of time...
-PREFIX=nice
+PREFIX="nice"
 
 for x in "$@"; do
 	echo "$x"

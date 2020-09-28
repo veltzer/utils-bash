@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This is a small script to find bad symbolic links and printout their
 names.

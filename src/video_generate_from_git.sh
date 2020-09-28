@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # this script generated a video from the git repository it is run in...
 

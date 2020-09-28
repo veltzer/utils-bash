@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script kills jack
 

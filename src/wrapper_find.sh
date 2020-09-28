@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This is a script which wraps the activation of find. The only difference
 is that it does not scream bloody murder if the directory he is asked
@@ -11,5 +11,5 @@ exist it simply calls find with the rest of the arguments.
 COMMENT
 
 if [[ -d $1 ]]; then
-	find $*
+	find "$@"
 fi

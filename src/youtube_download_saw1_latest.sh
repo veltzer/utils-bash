@@ -1,6 +1,7 @@
-utils_hibernate_disable.sh
+#!/bin/bash
 # update youtube-dl
 youtube-dl -U
+utils_hibernate_disable.sh
 youtube-dl\
 	https://www.youtube.com/playlist?list=PLZHKR1yYunFR7sXhq3hA89NLRLoFcEwmR\
 	--continue\
