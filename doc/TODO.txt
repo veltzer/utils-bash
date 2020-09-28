@@ -1,3 +1,5 @@
+add shellcheck in the makefile.
+
 youtube download scripts:
 	make these scripts more complicated: make them download the data
 	one by one and stop when he sees he already downloaded something.
