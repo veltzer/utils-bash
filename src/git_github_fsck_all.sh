@@ -2,11 +2,12 @@
 
 for x in *
 do
-	if [[ -d $x ]]
+	if [[ -d "$x" ]]
 	then
 		echo "doing [$x]"
-		cd $x
-		git fsck
-		cd ..
+		cd "$x" || exit
+		(
+			git fsck
+		)
 	fi
 done
