@@ -48,7 +48,7 @@ first_line_stats:
 
 .PHONY: clean
 clean:
-	rm -f $(ALL_STAMP)
+	$(Q)rm -f $(ALL_STAMP)
 
 ############
 # patterns #
