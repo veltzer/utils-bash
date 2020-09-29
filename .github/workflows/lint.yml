@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: update
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade 
       - name: deps
         run: sudo apt-get install shellcheck
       - name: lint
