@@ -55,5 +55,5 @@ clean:
 ############
 $(ALL_STAMP): %.stamp: %.sh $(ALL_DEP)
 	$(info doing [$@])
-	$(Q)shellcheck -x -P "$$HOME" $<
+	$(Q)/usr/bin/shellcheck -x -P "$$HOME" $<
 	$(Q)touch $@

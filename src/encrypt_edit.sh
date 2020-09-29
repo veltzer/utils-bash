@@ -27,10 +27,10 @@ else
     filename=$1
 fi
 
-if [ "$(which shred)" ]
+if [ "$(command -v shred)" ]
 then
     rm='shred -u'
-elif [ "$(which srm)" ]
+elif [ "$(command -v srm)" ]
 then
     rm='srm -z'
 else
