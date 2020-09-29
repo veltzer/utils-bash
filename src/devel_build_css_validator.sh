@@ -23,6 +23,6 @@ wget "http://www.apache.org/dist/tomcat/tomcat-6/v$TOMCAT6_VERSION/bin/apache-to
 tar xvf apache-tomcat-$TOMCAT6_VERSION.tar.gz
 mv apache-tomcat-$TOMCAT6_VERSION/lib/servlet-api.jar 2002/css-validator/lib/servlet.jar
 rm -rf apache-tomcat-$TOMCAT6_VERSION apache-tomcat-$TOMCAT6_VERSION.tar.gz
-cd 2002/css-validator
+cd 2002/css-validator || exit
 ant jar
 # usage example: java -jar css-validator.jar "http://csszengarden.com/"

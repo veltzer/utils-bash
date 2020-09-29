@@ -11,5 +11,5 @@ COMMENT
 
 if [[ -d .git ]]
 then
-	git $*
+	git "$@"
 fi

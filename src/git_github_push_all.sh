@@ -5,9 +5,10 @@ do
 	if [[ -d "$x/.git" ]]
 	then
 		echo "doing [$x]"
-		cd $x
+		(
+		cd "$x" || exit
 		#git push --tags
 		git push
-		cd ..
+		)
 	fi
 done

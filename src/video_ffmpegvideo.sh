@@ -17,14 +17,14 @@ COMMENT
 VBITRATE="$3"
 ABITRATE="$4"
 
-width=`/usr/bin/mediainfo --Inform=Video\;%Width% "$1"`
-height=`/usr/bin/mediainfo --Inform=Video\;%Height% "$1"`
+width=$(/usr/bin/mediainfo --Inform=Video\;%Width% "$1")
+height=$(/usr/bin/mediainfo --Inform=Video\;%Height% "$1")
 
 audcodec="ac3"
 
 aspect=$(echo "scale=2; ($width/$height)*100" | bc | awk -F '.' '{ print $1; exit; }' )
 
-echo $aspect
+echo "$aspect"
 comp=175
 bars=0
 
@@ -33,7 +33,7 @@ then
    # needs bars top and bottom
    bars=1
    pad=$(echo "scale=2; (($width/1.75)-$height)/2" | bc | awk -F '.' '{ print $1; exit; }' )
-   mod=$(($pad % 2))
+   mod=$((pad % 2))
    compmod=1
    if [ "$mod" -eq "$compmod" ]
    then
@@ -48,12 +48,12 @@ echo $pad
 if [ "$bars" -eq 1 ]
 then
    # bars top and bottom
-  exec ffmpeg -i "$1" -b ${VBITRATE} -maxrate ${VBITRATE} -minrate ${VBITRATE} \
--bufsize 5097k -bt 380k -padtop ${pad} -padbottom ${pad} -threads 2 -ab ${ABITRATE} \
--acodec ${audcodec} -async 1 -f mpegts -y - > "$2"
+  exec ffmpeg -i "$1" -b "${VBITRATE}" -maxrate "${VBITRATE}" -minrate "${VBITRATE}" \
+-bufsize 5097k -bt 380k -padtop "${pad}" -padbottom "${pad}" -threads 2 -ab "${ABITRATE}" \
+-acodec "${audcodec}" -async 1 -f mpegts -y - > "$2"
 else
   # bars left and right
-  exec ffmpeg -i "$1" -b ${VBITRATE} -maxrate ${VBITRATE} -minrate ${VBITRATE} \
--bufsize 5097k -bt 380k -padleft 4 -padright 4 -threads 2 -ab ${ABITRATE} \
--acodec ${audcodec} -async 1 -f mpegts -y - > "$2"
+  exec ffmpeg -i "$1" -b "${VBITRATE}" -maxrate "${VBITRATE}" -minrate "${VBITRATE}" \
+-bufsize 5097k -bt 380k -padleft 4 -padright 4 -threads 2 -ab "${ABITRATE}" \
+-acodec "${audcodec}" -async 1 -f mpegts -y - > "$2"
 fi
