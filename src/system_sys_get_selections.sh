@@ -9,5 +9,5 @@
 #	exit 1
 #fi
 
-HOSTNAME=`hostname`
-dpkg --get-selections  > dpkg_selections.$HOSTNAME.txt
+HOSTNAME="$(hostname)"
+dpkg --get-selections  > dpkg_selections."$HOSTNAME".txt

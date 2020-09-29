@@ -8,7 +8,7 @@ COMMENT
 
 FILE="/mnt/sdd1/mark/dev/personal/music/listening/heard.list"
 
-echo "do not use this script - use the new one (with the .pl extension)...\n"
+printf "do not use this script - use the new one (with the .pl extension)...\n"
 exit
 
 if [[ ! -f $FILE ]]
@@ -27,14 +27,16 @@ do
 	ret=$?
 	if [[ $ret -eq 0 ]]
 	then
+		{
 		# record the file name
-		echo `realpath "$x"` >> $FILE
+		realpath "$x"
 		# record the id3 tags
-		id3 -l "$x" >> $FILE
+		id3 -l "$x"
 		# record the date
-		date >> $FILE
+		date
 		# separator
-		echo "=======================" >> $FILE
+		echo "======================="
+		} >> "$FILE"
 	else
 		echo "problem playing song $x"
 		break

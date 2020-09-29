@@ -9,7 +9,7 @@ COMMENT
 
 if [ $# -eq 0 ]
 then
-	echo "Usage: `basename $0` FILE [FILE]..."
+	echo "Usage: $(basename "$0") FILE [FILE]..."
 	exit 1
 fi
 

@@ -12,7 +12,7 @@ for x in by_name/*/* by_organization/*/*
 do
 	if [[ -d $x ]]
 	then
-		y=`basename "$x"`
+		y=$(basename "$x")
 		ln -s "../$x" "by_title_name/$y"
 	fi
 done

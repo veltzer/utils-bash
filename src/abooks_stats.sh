@@ -8,13 +8,15 @@ COMMENT
 
 file=summary.txt
 
-echo -n > $file
-echo -n "number of authors: " >> $file
-find . -mindepth 2 -maxdepth 2 -and -type d | wc -l >> $file
-echo -n "number of works: " >> $file
-find . -mindepth 3 -and -type d | wc -l >> $file
-echo -n "number of files: " >> $file
-find . -mindepth 4 -and -type f | wc -l >> $file
-echo -n "size of collection: " >> $file
-du -hs . | cut -f 1 >> $file
+{
+echo -n
+echo -n "number of authors: "
+find . -mindepth 2 -maxdepth 2 -and -type d | wc -l
+echo -n "number of works: "
+find . -mindepth 3 -and -type d | wc -l
+echo -n "number of files: "
+find . -mindepth 4 -and -type f | wc -l
+echo -n "size of collection: "
+du -hs . | cut -f 1
+} > "$file"
 tree -L 2 by_name > list.txt

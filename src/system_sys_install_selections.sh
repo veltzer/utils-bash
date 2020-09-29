@@ -9,7 +9,7 @@ use it as sudo ./install_selections [selections file]
 
 COMMENT
 
-if test $USER != 'root'
+if test "$USER" != 'root'
 then
 	echo "run me as root..."
 	exit 1
@@ -21,7 +21,7 @@ then
 	exit 1
 fi
 selection=$1
-if test ! -r $selection
+if test ! -r "$selection"
 then
 	echo "selection file is invalid"
 	exit 1
@@ -30,6 +30,6 @@ fi
 apt-get update
 apt-get dist-upgrade
 apt-get install dselect
-dpkg --set-selections < $1
+dpkg --set-selections < "$1"
 dselect install
 dselect remove

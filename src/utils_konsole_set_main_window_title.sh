@@ -20,11 +20,11 @@ fi
 # first lets find out what our session is
 session=${TMUX##*,}
 # now list all sessions and their ptys
-pty="$(tmux list-clients -F '#{client_tty}' -t $session)"
+pty="$(tmux list-clients -F '#{client_tty}' -t "$session")"
 # now find out which applications are using that pty
-pids=$(fuser $pty 2> /dev/null)
+pids=$(fuser "$pty" 2> /dev/null)
 # find out which of them is 'konsole'
-info=$(ps --no-headers -o comm,pid $pids | tr -s " " | grep "^konsole ")
+info=$(ps --no-headers -o comm,pid "$pids" | tr -s " " | grep "^konsole ")
 # split the result and get the konsole pid
 pid="${info##* }"
 # set the title

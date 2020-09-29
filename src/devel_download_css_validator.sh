@@ -18,7 +18,7 @@ http://repo1.maven.org/maven2/org/ccil/cowan/tagsoup/tagsoup/1.2/tagsoup-1.2.jar
 http://repo1.maven.org/maven2/org/apache/velocity/velocity/1.7/velocity-1.7.jar
 http://repo1.maven.org/maven2/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar xercesImpl.jar
 http://repo1.maven.org/maven2/nu/validator/htmlparser/htmlparser/1.2.1/htmlparser-1.2.1.jar\
-" | while read url shortname
+" | while read -r url shortname
 do
 	if [ -z "$shortname" ]
 	then

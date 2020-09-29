@@ -7,11 +7,13 @@
 my_name=$0
 my_name=${my_name##*/}
 my_name=${my_name%.*}
+key=
 
 # -n: no swap file will be used
 # -i NONE: no .viminfo file updates
 editor="vim -n -i NONE -M"
-. $HOME/.config/encrypt.sh
+# shellcheck source=/dev/null
+source "$HOME/.config/encrypt.sh"
 
 filename="passwords.gpg"
 if [ $# -eq 0 ]
@@ -25,40 +27,40 @@ else
     filename=$1
 fi
 
-if [ `which shred` ]
+if [ "$(which shred)" ]
 then
     rm='shred -u'
-elif [ `which srm` ]
+elif [ "$(which srm)" ]
 then
     rm='srm -z'
 else
     rm='rm'
 fi
 
-if [ ! -f $filename ]
+if [ ! -f "$filename" ]
 then
     echo "$filename doesn't exist."
     exit 1
-elif [ ! -r $filename ]
+elif [ ! -r "$filename" ]
 then
     echo "$filename isn't readable."
     exit 2
 fi
 
-tmp=`mktemp --tmpdir=$HOME/tmp -t $my_name.XXXXXXXXXX` || exit 1
+tmp=$(mktemp --tmpdir="$HOME/tmp" -t "$my_name.XXXXXXXXXX") || exit 1
 
 # decrypt into the tmp file
-gpg --quiet --decrypt --default-key $key --batch $filename > $tmp
+gpg --quiet --decrypt --default-key "$key" --batch "$filename" > "$tmp"
 gpg_code=$?
 # if gpg didn't work, exit with the exit code of gpg
-if [ $gpg_code != 0 ]
+if [ "$gpg_code" != 0 ]
 then
-    $rm $tmp
+    $rm "$tmp"
     echo "could not decrypt file with code [$gpg_code]"
-    exit $gpg_code
+    exit "$gpg_code"
 fi
 
 # edit the file
-$editor $tmp
+$editor "$tmp"
 
-$rm $tmp
+$rm "$tmp"
