@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script checks the books database.
 
@@ -11,7 +11,8 @@ This code does not work because of incorrect expansion
 the list of suffixes we support for book content
 suff=(chm tar.bz2 pdf ps html dvi lit doc djvu zip rtf txt pdb mht)
 cmd=""
-for x in ${suff[*]}; do
+for x in ${suff[*]}
+do
 	cmd="$cmd -and -not -name '*.$x'"
 done
 echo $cmd
@@ -21,7 +22,8 @@ find . -mindepth 1 -type f $cmd
 COMMENT
 
 # first check that we are in the right folder
-if [[ ! -d by_name ]];then
+if [[ ! -d by_name ]]
+then
 	echo "put me in the folder where by_name is..."
 	exit 1
 fi

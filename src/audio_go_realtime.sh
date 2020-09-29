@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 script to turn off all unneccessary things for you.
 this script kills anything that may get in the way of a good recording session:

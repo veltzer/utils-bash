@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 TODO:
 - check that track names are of the right style and unified all over
@@ -15,7 +15,8 @@ is not yet working properly so this is the right code for now.
 COMMENT
 
 # first check that we are in the right folder
-if [[ ! -d by_name ]];then
+if [[ ! -d by_name ]]
+then
 	echo "put me in the folder where by_name is..."
 	exit 1
 fi

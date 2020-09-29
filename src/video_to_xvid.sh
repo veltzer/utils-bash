@@ -15,25 +15,29 @@ OAC=mp3lame
 # nice because it takes lots of time...
 PREFIX="nice"
 
-for x in "$@"; do
+for x in "$@"
+do
 	echo "$x"
 	y="$x.tmp"
 	# this removes the suffix from the file name...
 	name=${x%.*}.$SUFFIX
 	$PREFIX mencoder "$x" -ovc $OVC -oac $OAC -xvidencopts fixed_quant=4 -o "$y"; ret=$?
-	if [[ $ret -ne 0 ]]; then
+	if [[ $ret -ne 0 ]]
+	then
 		echo "problem converting file $x"
 		echo "removing tmp file $y"
 		rm -f "$y"
 		break
 	fi
 	rm -f "$x"; ret=$?
-	if [[ $ret -ne 0 ]]; then
+	if [[ $ret -ne 0 ]]
+	then
 		echo "problem removing original file $x"
 		break
 	fi
 	mv -f "$y" "$name"; ret=$?
-	if [[ $ret -ne 0 ]]; then
+	if [[ $ret -ne 0 ]]
+	then
 		echo "problem moving file $y to $name"
 		break
 	fi

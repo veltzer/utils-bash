@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script create the stats file which containts meta information about the collection
 
@@ -21,7 +21,8 @@ du -hs . | cut -f 1 >> $file
 # this is old code that counts files per file type.
 # since there is just one file type now I don't need it
 let "sum=0"
-for suff in ${suffs[*]}; do
+for suff in ${suffs[*]}
+do
 	echo -n "number of $suff: " >> $file
 	num=$(find . -mindepth 2 -and -type f -and -name "*.$suff" | wc -l)
 	echo $num >> $file

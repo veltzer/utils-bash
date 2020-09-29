@@ -1,12 +1,13 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script updates your system
 
 COMMENT
 
-#if test $USER != 'root';then
+#if test $USER != 'root'
+#then
 #	echo "run me as root..."
 #	exit 1
 #fi

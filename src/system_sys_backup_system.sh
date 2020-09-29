@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script backs up your /etc folder (where 90% of your configuration lives)
 and the selection of packages you are using...
@@ -9,7 +9,8 @@ COMMENT
 
 # this script should not be run as root since it needs the user name to change
 # the file ownership to...:)
-if [[ $USER == 'root' ]];then
+if [[ $USER == 'root' ]]
+then
 	echo "do not run me as root..."
 	exit 1
 fi

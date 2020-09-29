@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script cleans up package manager cruft on your system...
 three things it does:
@@ -10,17 +10,20 @@ three things it does:
 
 COMMENT
 
-#if test $USER != 'root';then
+#if test $USER != 'root'
+#then
 #	echo "run me as root..."
 #	exit 1
 #fi
 
 # count number of rc packages...
-count=`dpkg --list | grep "^rc" | tr -s " " | cut -d " " -f 2 | wc -l`
+count=$(dpkg --list | grep "^rc" | tr -s " " | cut -d " " -f 2 | wc -l)
 # make sure that there are packages like that...
-if test $count -gt 0; then
+if test "$count" -gt 0
+then
 	# this purges removed but not purge packages...
-	sudo dpkg --purge `dpkg --list | grep "^rc" | tr -s " " | cut -d " " -f 2`
+	read -ra packages < <(dpkg --list | grep "^rc" | tr -s " " | cut -d " " -f 2)
+	sudo dpkg --purge  ${#packages[@]}
 else
 	echo "you do not have any rc package..."
 fi

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # we need to be run as root...
-if test $USER != 'root';then
+if test "$USER" != 'root'
+then
 	echo "run me as root..."
 	exit 1
 fi
@@ -19,8 +20,10 @@ rm -f $DIR/*
 #sudo rm -f `find $DIR -type l`
 
 # recreate the links...
-for x in $names; do
-	if [[ -d ${x}.git ]]; then
+for x in $names
+do
+	if [[ -d ${x}.git ]]
+	then
 		echo "doing link for [$x]"
 		ln -s /home/mark/git/repos/${x}.git ${DIR}/${x}.git
 	else

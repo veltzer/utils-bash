@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This is a script that allows you to move files with long names
 without repeating the name of the file.

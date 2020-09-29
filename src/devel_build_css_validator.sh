@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 this is taken from http://stackoverflow.com/questions/1137884/is-there-an-open-source-css-validator-that-can-be-run-locally
 (mark veltzer)

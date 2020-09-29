@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script transcodes various video formats to MPEG2 Video and
 AC3 audio in an MPEG2 Transport Stream for the DirecTV HR2x
@@ -28,13 +28,15 @@ echo $aspect
 comp=175
 bars=0
 
-if [ "$aspect" -gt "$comp" ]; then
+if [ "$aspect" -gt "$comp" ]
+then
    # needs bars top and bottom
    bars=1
    pad=$(echo "scale=2; (($width/1.75)-$height)/2" | bc | awk -F '.' '{ print $1; exit; }' )
    mod=$(($pad % 2))
    compmod=1
-   if [ "$mod" -eq "$compmod" ]; then
+   if [ "$mod" -eq "$compmod" ]
+   then
       # pad must be an even number
       pad=$((pad+1))
    fi
@@ -43,7 +45,8 @@ fi
 echo $pad
 
 # Make sure the ffmpeg path is correct
-if [ "$bars" -eq 1 ]; then
+if [ "$bars" -eq 1 ]
+then
    # bars top and bottom
   exec ffmpeg -i "$1" -b ${VBITRATE} -maxrate ${VBITRATE} -minrate ${VBITRATE} \
 -bufsize 5097k -bt 380k -padtop ${pad} -padbottom ${pad} -threads 2 -ab ${ABITRATE} \

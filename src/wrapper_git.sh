@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This is a script that wraps the activation of git. It is supposed to wrap activation
 of stuff like 'git ls-files'. It will not scream bloody murder if the current directory
@@ -9,6 +9,7 @@ IF THIS IS NOT A GIT FOLDER.
 
 COMMENT
 
-if [[ -d .git ]]; then
+if [[ -d .git ]]
+then
 	git $*
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script finds all files under the current folder which are not video files.
 You can pass a depth parameter to it

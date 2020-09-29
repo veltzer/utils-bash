@@ -1,6 +1,6 @@
 #!/bin/bash
 
-<<'COMMENT'
+: <<'COMMENT'
 
 This script converts wma files to ogg vorbis files
 use with care
@@ -13,14 +13,17 @@ then
 	exit 1
 fi
 
-for source in "$@"; do
-	if [ -f "$source" ]; then
+for source in "$@"
+do
+	if [ -f "$source" ]
+	then
 		echo "Encoding $source"
 		base=${source%.*} # remove suffix
 		dest="$base.ogg"
 
 		tmp=tmp.wav
-		if [ -e $tmp ]; then
+		if [ -e $tmp ]
+		then
 			rm -f $tmp
 		fi
 		mkfifo $tmp
@@ -31,7 +34,8 @@ for source in "$@"; do
 		stat=$?
 		rm -f $tmp
 
-		if [ $stat -ne 0 ]; then
+		if [ $stat -ne 0 ]
+		then
 			echo "Error $stat"
 		fi
 	fi

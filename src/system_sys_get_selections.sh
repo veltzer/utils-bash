@@ -3,7 +3,8 @@
 # only get the selections...
 
 # this script does not have to run as root
-#if test $USER != 'root';then
+#if test $USER != 'root'
+#then
 #	echo "run me as root..."
 #	exit 1
 #fi

@@ -22,7 +22,8 @@ du -hs . | cut -f 1
 } > $file
 # this is old code that counts files per file type.
 # since there is just one file type now I don't need it
-#for suff in mp3 ogg m4a wma flac; do
+#for suff in mp3 ogg m4a wma flac
+#do
 #	echo -n "number of $suff: " >> $file
 #	find . -mindepth 2 -and -type f -and -name "*.$suff" | wc -l >> $file
 #done

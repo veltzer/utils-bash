@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # first check that we are in the right folder
-if [[ ! -d by_name ]]; then
+if [[ ! -d by_name ]]
+then
 	echo "put me where by_name is..."
 	exit 1
 fi

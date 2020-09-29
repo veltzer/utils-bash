@@ -10,6 +10,7 @@ exist it simply calls find with the rest of the arguments.
 
 COMMENT
 
-if [[ -d $1 ]]; then
+if [[ -d $1 ]]
+then
 	find "$@"
 fi
