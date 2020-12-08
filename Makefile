@@ -3,7 +3,7 @@
 ##############
 # do you want to see the commands executed ?
 DO_MKDBG:=0
-# do you want to check python syntax?
+# do you want to check bash syntax?
 DO_CHECK_SYNTAX:=1
 
 ########
@@ -18,12 +18,14 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
+ALL_DEP=Makefile
+
 ALL:=
 ALL_SH:=$(shell find src -name "*.sh")
-ALL_STAMP:=$(addsuffix .stamp, $(basename $(ALL_SH)))
+ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
 
 ifeq ($(DO_CHECK_SYNTAX),1)
-	ALL+=$(ALL_STAMP)
+ALL+=$(ALL_STAMP)
 endif # DO_CHECK_SYNTAX
 
 #########
@@ -53,7 +55,8 @@ clean:
 ############
 # patterns #
 ############
-$(ALL_STAMP): %.stamp: %.sh $(ALL_DEP)
+$(ALL_STAMP): out/%.stamp: % $(ALL_DEP)
 	$(info doing [$@])
-	$(Q)/usr/bin/shellcheck -x -P "$$HOME" $<
+	$(Q)mkdir -p $(dir $@)
+	$(Q)shellcheck -x -P "$$HOME" $<
 	$(Q)touch $@
