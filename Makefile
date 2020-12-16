@@ -60,8 +60,8 @@ clean_hard:
 ############
 # patterns #
 ############
-$(ALL_STAMP): out/%.stamp: % $(ALL_DEP)
+$(ALL_STAMP): out/%.stamp: % .shellcheckrc $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
-	$(Q)shellcheck -x -P "$$HOME" $<
+	$(Q)shellcheck --shell=bash --external-sources --source-path="$$HOME" $<
 	$(Q)touch $@
