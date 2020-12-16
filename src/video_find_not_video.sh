@@ -9,7 +9,7 @@ COMMENT
 
 if [ "$#" -gt 1 ]
 then
-	echo "$0: use with at most one argument"
+	echo "$0: use with at most one argument [level=1]"
 	exit 1
 fi
 
