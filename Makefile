@@ -52,7 +52,6 @@ first_line_stats:
 clean:
 	$(Q)rm -f $(ALL_STAMP)
 
-
 .PHONY: clean_hard
 clean_hard:
 	$(Q)git clean -qffxd
