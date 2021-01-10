@@ -1,5 +1,3 @@
-add shellcheck in the makefile.
-
 youtube download scripts:
 	make these scripts more complicated: make them download the data
 	one by one and stop when he sees he already downloaded something.
@@ -8,3 +6,7 @@ youtube download scripts:
 	https://www.youtube.com/playlist?list=PLZHKR1yYunFQ3ciN2kHYg5y7YjKZUjMey\
 	saw
 	https://www.youtube.com/playlist?list=PLZHKR1yYunFR7sXhq3hA89NLRLoFcEwmR\
+
+utils_hibernate_* scripts:
+	add a depth type atomic counter so that if two scripts are running which use these
+	will not turn off the protection each wants.
