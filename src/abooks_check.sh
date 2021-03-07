@@ -9,11 +9,11 @@ fi
 
 # this checks that the files are of the right type
 echo "Checking that all are mp3"
-find by_name by_company -mindepth 1 -type f -and -not -name "*.mp3" -and -not -name "*.WMA"
+find by_name by_organization -mindepth 1 -type f -and -not -name "*.mp3" -and -not -name "*.WMA"
 # this checks for permissions other than 444
 echo "Files which are not 444"
-find by_name by_company -mindepth 1 -type f -and -not -perm 444
+find by_name by_organization -mindepth 1 -type f -and -not -perm 444
 echo "Folders which are not 775"
-find by_name by_company -type d -and -not -perm 775
+find by_name by_organization -type d -and -not -perm 775
 echo "Files too deep"
 find by_name -mindepth 4
