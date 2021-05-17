@@ -1,4 +1,4 @@
-#!/bin/bash -u
+#!/bin/bash
 
 if [[ $# -ne 3 ]]
 then
