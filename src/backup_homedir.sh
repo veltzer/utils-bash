@@ -2,7 +2,15 @@
 
 # backup your home directory excluding folders which have a .NOBACKUP file in them
 
-target="/tmp/homdir.tar.gz"
+temp="/tmp/homdir.tar.gz"
+target="${HOME}/homdir.tar.gz"
 
-cd ~
-tar --create --gzip --file "${target}" --exclude-tag-all=.NOBACKUP .
+if [ -f "${target}" ]
+then
+	echo "removing backup already in your homedir"
+	rm "${target}"
+fi
+cd "${HOME}" 
+tar --create --gzip --file "${temp}" --exclude-tag-all=.NOBACKUP .
+mv "${temp}" "${target}" 
+echo "your backup is in your homedir"
