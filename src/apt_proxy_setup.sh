@@ -7,7 +7,7 @@ then
 fi
 sudo bash -c "cat << EOF > /etc/apt/apt.conf.d/21proxy
 Acquire {
-  HTTP::proxy $http_proxy;
-  HTTPS::proxy $https_proxy;
+  HTTP::proxy \"$http_proxy\";
+  HTTPS::proxy \"$https_proxy\";
 }
 EOF"
