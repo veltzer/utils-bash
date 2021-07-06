@@ -39,7 +39,7 @@ find . \
 -and -not -name "*.qt" \
 -and -not -name "*.mp4" \
 -and -not -name "*.VOB" \
--and -not -name "*.MTS" \
+-and -not -name "*.mts" \
 -and -not -name "*.webm" \
 -and -not -name "*.vid" \
 -and -not -name "*.m3u"
