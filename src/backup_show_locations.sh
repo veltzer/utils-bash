@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 set -x
 ls -l /home/mark/backups
 ls -l /mnt/sdb1/mark/backups

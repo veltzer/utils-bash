@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 for x in py*
 do
 	if [ ! -f "$x/doc/TODO.txt" ]

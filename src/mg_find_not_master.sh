@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 for x in *
 do
 	if [ -d "$x/.git" ]

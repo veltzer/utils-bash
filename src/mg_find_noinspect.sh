@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/bash -e
 pymultigit grep --regexp "# noinspection "

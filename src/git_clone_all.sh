@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 for x in /home/mark/git/repos/*.git
 do

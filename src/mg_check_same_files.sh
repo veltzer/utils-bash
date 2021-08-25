@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # ls -d py* | wc -l
 pycmdtools mcmp py*/MANIFEST.in
 pycmdtools mcmp py*/setup.cfg

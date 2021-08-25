@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # run bash on a container, given the image name of the containr
 

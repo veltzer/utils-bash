@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # References:
 # - https://coderwall.com/p/mnwcog/create-new-github-repo-from-command-line

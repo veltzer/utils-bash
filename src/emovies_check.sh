@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # this checks that the files are of the right type
 echo "Checking that all are of the right suffix"

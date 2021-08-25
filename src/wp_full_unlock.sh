@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # this script should be used when you are updating wordpress itself...
 

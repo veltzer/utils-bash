@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # only get the selections...
 

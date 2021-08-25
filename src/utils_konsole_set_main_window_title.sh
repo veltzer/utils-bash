@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # This will set the title of the current terminal window
 #

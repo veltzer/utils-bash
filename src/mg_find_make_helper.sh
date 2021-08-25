@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 for x in */Makefile
 do
 	echo "$x"

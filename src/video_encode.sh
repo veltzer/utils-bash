@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #mencoder -o "$HOME/$1.avi" -ovc lavc -oac mp3lame "$1"
 date=$(date)

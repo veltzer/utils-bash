@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh

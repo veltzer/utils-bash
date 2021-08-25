@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # start the gnome keyring daemon (otherwise it complains constantly...)
 killall -9 gnome-keyring-daemon

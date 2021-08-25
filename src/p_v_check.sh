@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 ERRFILE=errors.txt
 echo "Resetting the $ERRFILE file"
 # reset the errors file

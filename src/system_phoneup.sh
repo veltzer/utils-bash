@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # put the phone on PCSUITE mode for this to work...
 sudo ifdown eth0
 sudo ifdown eth1

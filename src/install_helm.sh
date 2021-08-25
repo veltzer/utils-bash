@@ -1,4 +1,5 @@
 #!/bin/bash -e
+
 if [ -f ~/install/bin/helm ]
 then
 	echo "you already have helm in ~/bin/helm"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 sudo ifconfig eth1 down
 sudo ifdown eth1
 sudo ifconfig eth0 down

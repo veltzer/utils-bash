@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # shellcheck disable=SC2154
 if [ -z "$http_proxy" ] || [ -z "$https_proxy" ]
 then
