@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# the idea was taken from:
+# https://github.com/bahmutov/git-branches/blob/master/branches.sh
+
 function listBranchWithDescription() {
 	branches=$(git branch --list "$1")
 	while read -r branch
