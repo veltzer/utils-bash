@@ -10,5 +10,5 @@ then
 else
 	msg="commit message"
 fi
-git commit -am $msg
+git commit -am "${msg}"
 git push
