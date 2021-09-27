@@ -42,4 +42,5 @@ find . \
 -and -not -name "*.mts" \
 -and -not -name "*.webm" \
 -and -not -name "*.vid" \
--and -not -name "*.m3u"
+-and -not -name "*.m3u" \
+-and -not -name "*.m4a"
