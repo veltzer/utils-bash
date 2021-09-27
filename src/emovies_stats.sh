@@ -6,7 +6,13 @@ This script create the stats file which containts meta information about the col
 
 COMMENT
 
-file=summary.txt
+if [ ! -d by_name ]
+then
+	echo "Put me in the right folder"
+	exit 1
+fi
+
+file=stats.txt
 
 {
 echo -n
