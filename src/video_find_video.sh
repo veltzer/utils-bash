@@ -22,8 +22,8 @@ fi
 find . \
 -mindepth "$depth" \
 -type f \
--and \(
--or -name "*.avi" \
+-and \( \
+-name "*.avi" \
 -or -name "*.flv" \
 -or -name "*.wmv" \
 -or -name "*.mpg" \
@@ -42,6 +42,5 @@ find . \
 -or -name "*.mts" \
 -or -name "*.webm" \
 -or -name "*.vid" \
--or -name "*.m3u" \
--or -name "*.m4a" \
-\)
+-or -name "*.m4a" \)
+#-or -name "*.m3u" \
