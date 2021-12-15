@@ -9,5 +9,5 @@ COMMENT
 readarray -t images < <(docker images --format "{{.ID}}")
 if [ "${#images[@]}" -gt 0 ]
 then
-	docker rmi "${images[@]}"
+	docker rmi --force "${images[@]}"
 fi
