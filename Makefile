@@ -31,7 +31,6 @@ endif # DO_CHECK_SYNTAX
 #########
 # RULES #
 #########
-.DEFAULT_GOAL=all
 .PHONY: all
 all: $(ALL)
 
