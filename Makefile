@@ -5,6 +5,8 @@
 DO_MKDBG:=0
 # do you want to check bash syntax?
 DO_CHECK_SYNTAX:=1
+# do you want dependency on the Makefile itself ?
+DO_ALLDEP:=1
 
 ########
 # CODE #
@@ -18,7 +20,10 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ALL_DEP=Makefile
+# dependency on the makefile itself
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
+endif
 
 ALL:=
 ALL_SH:=$(shell find src -name "*.sh")
@@ -58,7 +63,7 @@ clean_hard:
 ############
 # patterns #
 ############
-$(ALL_STAMP): out/%.stamp: % .shellcheckrc $(ALL_DEP)
+$(ALL_STAMP): out/%.stamp: % .shellcheckrc
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)shellcheck --shell=bash --external-sources --source-path="$$HOME" $<
