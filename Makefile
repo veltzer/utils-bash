@@ -38,6 +38,7 @@ endif # DO_CHECK_SYNTAX
 #########
 .PHONY: all
 all: $(ALL)
+	@true
 
 .PHONY: install
 install:
