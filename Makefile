@@ -7,10 +7,14 @@ DO_MKDBG:=0
 DO_CHECK_SYNTAX:=1
 # do you want dependency on the Makefile itself ?
 DO_ALLDEP:=1
+# do you want to do tools?
+DO_TOOLS:=1
 
 ########
 # CODE #
 ########
+ALL:=
+
 # silent stuff
 ifeq ($(DO_MKDBG),1)
 Q:=
@@ -25,7 +29,6 @@ ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
 
-ALL:=
 ALL_SH:=$(shell find src -name "*.sh")
 ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
 
@@ -42,23 +45,28 @@ all: $(ALL)
 
 .PHONY: install
 install:
+	$(info doing [$@])
 	$(Q)pymakehelper symlink_install --source_folder src --target_folder ~/install/bin
 
 .PHONY: debug
 debug:
+	$(info doing [$@])
 	$(info ALL_SH is $(ALL_SH))
 	$(info ALL_STAMP is $(ALL_STAMP))
 
 .PHONY: first_line_stats
 first_line_stats:
+	$(info doing [$@])
 	$(Q)head -1 -q $(ALL_SH) | sort -u
 
 .PHONY: clean
 clean:
+	$(info doing [$@])
 	$(Q)rm -f $(ALL_STAMP)
 
 .PHONY: clean_hard
 clean_hard:
+	$(info doing [$@])
 	$(Q)git clean -qffxd
 
 ############
