@@ -7,7 +7,7 @@ pycmdtools mcmp py*/Makefile
 pycmdtools mcmp py*/.pylintrc
 pycmdtools mcmp py*/.myenv
 pycmdtools mcmp py*/.flake8
-pycmdtools mcmp py*/templates/LICENSE
+# pycmdtools mcmp py*/templates/LICENSE
 pycmdtools mcmp py*/templates/requirements.txt.mako
 pycmdtools mcmp py*/templates/setup.py.mako
 pycmdtools mcmp py*/templates/README.rst.mako
