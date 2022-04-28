@@ -1,6 +1,6 @@
-##############
-# PARAMETERS #
-##############
+##########
+# params #
+##########
 # do you want to see the commands executed ?
 DO_MKDBG:=0
 # do you want to check bash syntax?
@@ -11,9 +11,10 @@ DO_ALLDEP:=1
 DO_TOOLS:=1
 
 ########
-# CODE #
+# code #
 ########
 ALL:=
+TOOLS:=tools.stamp
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -29,6 +30,11 @@ ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
 
+ifeq ($(DO_TOOLS),1)
+.EXTRA_PREREQS+=$(TOOLS)
+ALL+=$(TOOLS)
+endif # DO_TOOLS
+
 ALL_SH:=$(shell find src -name "*.sh")
 ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
 
@@ -37,11 +43,16 @@ ALL+=$(ALL_STAMP)
 endif # DO_CHECK_SYNTAX
 
 #########
-# RULES #
+# rules #
 #########
 .PHONY: all
 all: $(ALL)
 	@true
+
+$(TOOLS): packages.txt config/deps.py
+	$(info doing [$@])
+	$(Q)xargs -a packages.txt sudo apt-get -y install > /dev/null
+	$(Q)pymakehelper touch_mkdir $@
 
 .PHONY: install
 install:
@@ -76,4 +87,4 @@ $(ALL_STAMP): out/%.stamp: % .shellcheckrc
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)shellcheck --shell=bash --external-sources --source-path="$$HOME" $<
-	$(Q)touch $@
+	$(Q)pymakehelper touch_mkdir $@
