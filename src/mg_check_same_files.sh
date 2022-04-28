@@ -1,27 +1,30 @@
 #!/bin/bash -e
 # ls -d py* | wc -l
-pycmdtools mcmp py*/MANIFEST.in
-pycmdtools mcmp py*/setup.cfg
-pycmdtools mcmp py*/.myenv
-pycmdtools mcmp py*/Makefile
-pycmdtools mcmp py*/.pylintrc
-pycmdtools mcmp py*/.myenv
-pycmdtools mcmp py*/.flake8
-pycmdtools mcmp py*/templates/LICENSE.mako
-pycmdtools mcmp py*/templates/requirements.txt.mako
-pycmdtools mcmp py*/templates/setup.py.mako
-pycmdtools mcmp py*/templates/README.rst.mako
-pycmdtools mcmp py*/templates/README.md.mako
-pycmdtools mcmp py*/templates/*/static.py.mako
-pycmdtools mcmp py*/templates/.github/workflows/build.yml.mako
-pycmdtools mcmp py*/config/apt.py
-pycmdtools mcmp py*/config/composites.py
-pycmdtools mcmp py*/config/deb.py
-pycmdtools mcmp py*/config/general.py
-pycmdtools mcmp py*/config/git.py
-pycmdtools mcmp py*/config/__init__.py
-pycmdtools mcmp py*/config/messages.py
-pycmdtools mcmp py*/.gitignore
+pycmdtools mcmp --print "MANIFEST.in" py*/MANIFEST.in
+pycmdtools mcmp --print "setup.cfg" py*/setup.cfg
+pycmdtools mcmp --print ".myenv" py*/.myenv
+pycmdtools mcmp --print "Makefile" py*/Makefile
+pycmdtools mcmp --print ".pylintrc" py*/.pylintrc
+pycmdtools mcmp --print ".myenv" py*/.myenv
+pycmdtools mcmp --print ".flake8" py*/.flake8
+pycmdtools mcmp --print ".gitignore" py*/.gitignore
+# templates
+pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
+pycmdtools mcmp --print "templates/requirements.txt.mako" py*/templates/requirements.txt.mako
+pycmdtools mcmp --print "templates/setup.py.mako" py*/templates/setup.py.mako
+pycmdtools mcmp --print "templates/README.rst.mako" py*/templates/README.rst.mako
+pycmdtools mcmp --print "templates/README.md.mako" py*/templates/README.md.mako
+pycmdtools mcmp --print "templates/[pkg]/static.py.mako" py*/templates/*/static.py.mako
+pycmdtools mcmp --print "templates/.github/workflows/build.yml.mako" py*/templates/.github/workflows/build.yml.mako
+# configs
+pycmdtools mcmp --print "config/apt.py" py*/config/apt.py
+pycmdtools mcmp --print "config/composites.py" py*/config/composites.py
+pycmdtools mcmp --print "config/deb.py" py*/config/deb.py
+pycmdtools mcmp --print "config/general.py" py*/config/general.py
+pycmdtools mcmp --print "config/git.py" py*/config/git.py
+pycmdtools mcmp --print "config/__init__.py" py*/config/__init__.py
+pycmdtools mcmp --print "config/messages.py" py*/config/messages.py
 # still doesnt work
-# pycmdtools mcmp py*/.idea/.gitignore
-# pycmdtools mcmp py*/.github/workflows/build.yml
+pycmdtools mcmp --print ".idea/.gitignore" py*/.idea/.gitignore
+# workflows
+pycmdtools mcmp --print ".github/workflows/build.yml" py*/.github/workflows/build.yml
