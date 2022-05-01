@@ -26,7 +26,7 @@ pycmdtools mcmp --print "config/git.py" py*/config/git.py
 pycmdtools mcmp --print "config/__init__.py" py*/config/__init__.py
 pycmdtools mcmp --print "config/messages.py" py*/config/messages.py
 pycmdtools mcmp --print "config/deps.py" py*/config/deps.py
-# still doesnt work
+# .idea stuff
 pycmdtools mcmp --print ".idea/.gitignore" py*/.idea/.gitignore
-# workflows
+# results of templates
 pycmdtools mcmp --print ".github/workflows/build.yml" py*/.github/workflows/build.yml
