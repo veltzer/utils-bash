@@ -7,14 +7,11 @@ DO_MKDBG:=0
 DO_CHECK_SYNTAX:=1
 # do you want dependency on the Makefile itself ?
 DO_ALLDEP:=1
-# do you want to do tools?
-DO_TOOLS:=1
 
 ########
 # code #
 ########
 ALL:=
-TOOLS:=tools.stamp
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -30,11 +27,6 @@ ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
 
-ifeq ($(DO_TOOLS),1)
-.EXTRA_PREREQS+=$(TOOLS)
-ALL+=$(TOOLS)
-endif # DO_TOOLS
-
 ALL_SH:=$(shell find src -name "*.sh")
 ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
 
@@ -48,11 +40,6 @@ endif # DO_CHECK_SYNTAX
 .PHONY: all
 all: $(ALL)
 	@true
-
-$(TOOLS): packages.txt config/deps.py
-	$(info doing [$@])
-	$(Q)xargs -a packages.txt sudo apt-get -y install > /dev/null
-	$(Q)pymakehelper touch_mkdir $@
 
 .PHONY: install
 install:
