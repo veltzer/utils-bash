@@ -8,7 +8,6 @@ pycmdtools mcmp --print ".pylintrc" py*/.pylintrc
 pycmdtools mcmp --print ".myenv" py*/.myenv
 pycmdtools mcmp --print ".flake8" py*/.flake8
 pycmdtools mcmp --print ".gitignore" py*/.gitignore
-pycmdtools mcmp --print "packages.txt" py*/packages.txt
 # templates
 pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
 pycmdtools mcmp --print "templates/requirements.txt.mako" py*/templates/requirements.txt.mako
