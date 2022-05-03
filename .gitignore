@@ -1,2 +1,4 @@
 *.stamp
 /.venv
+/.pydmt
+__pycache__
