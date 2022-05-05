@@ -2,10 +2,8 @@
 # ls -d py* | wc -l
 pycmdtools mcmp --print "MANIFEST.in" py*/MANIFEST.in
 pycmdtools mcmp --print "setup.cfg" py*/setup.cfg
-pycmdtools mcmp --print ".myenv" py*/.myenv
 pycmdtools mcmp --print "Makefile" py*/Makefile
 pycmdtools mcmp --print ".pylintrc" py*/.pylintrc
-pycmdtools mcmp --print ".myenv" py*/.myenv
 pycmdtools mcmp --print ".flake8" ./*/.flake8
 pycmdtools mcmp --print ".gitignore" py*/.gitignore
 # templates
