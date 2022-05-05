@@ -6,7 +6,7 @@ pycmdtools mcmp --print ".myenv" py*/.myenv
 pycmdtools mcmp --print "Makefile" py*/Makefile
 pycmdtools mcmp --print ".pylintrc" py*/.pylintrc
 pycmdtools mcmp --print ".myenv" py*/.myenv
-pycmdtools mcmp --print ".flake8" */.flake8
+pycmdtools mcmp --print ".flake8" ./*/.flake8
 pycmdtools mcmp --print ".gitignore" py*/.gitignore
 # templates
 pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
