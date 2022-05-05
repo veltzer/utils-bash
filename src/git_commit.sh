@@ -8,7 +8,7 @@ if [[ $# -eq 1 ]]
 then
 	msg="$1"
 else
-	msg="commit message"
+	msg="no commit message given"
 fi
 git commit -am "${msg}"
 git push
