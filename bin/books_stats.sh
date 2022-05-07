@@ -23,7 +23,7 @@ suffs=(chm tar.bz2 pdf ps html dvi lit doc djvu zip rtf txt pdb mht rar jpg js g
 # this is old code that counts files per file type.
 # since there is just one file type now I don't need it
 ((sum=0))
-for suff in ${suffs[*]}
+for suff in "${suffs[@]}"
 do
 	echo -n "number of $suff: "
 	num=$(find . -mindepth 2 -and -type f -and -name "*.$suff" | wc -l)
