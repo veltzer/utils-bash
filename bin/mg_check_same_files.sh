@@ -8,7 +8,6 @@ pycmdtools mcmp --print ".flake8" ./*/.flake8
 pycmdtools mcmp --print ".gitignore" py*/.gitignore
 # templates
 pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
-pycmdtools mcmp --print "templates/requirements.txt.mako" py*/templates/requirements.txt.mako
 pycmdtools mcmp --print "templates/setup.py.mako" py*/templates/setup.py.mako
 pycmdtools mcmp --print "templates/README.rst.mako" py*/templates/README.rst.mako
 pycmdtools mcmp --print "templates/README.md.mako" py*/templates/README.md.mako
