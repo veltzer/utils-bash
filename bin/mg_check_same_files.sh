@@ -5,7 +5,7 @@ pycmdtools mcmp --print "setup.cfg" py*/setup.cfg
 pycmdtools mcmp --print "Makefile" py*/Makefile
 pycmdtools mcmp --print ".pylintrc" ./*/.pylintrc
 pycmdtools mcmp --print ".flake8" ./*/.flake8
-pycmdtools mcmp --print ".gitignore" py*/.gitignore
+pycmdtools mcmp --print ".gitignore" ./*/.gitignore
 # templates
 pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
 pycmdtools mcmp --print "templates/setup.py.mako" py*/templates/setup.py.mako
