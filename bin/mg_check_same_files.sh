@@ -11,6 +11,7 @@ pycmdtools mcmp --print "templates/LICENSE.mako" py*/templates/LICENSE.mako
 pycmdtools mcmp --print "templates/setup.py.mako" py*/templates/setup.py.mako
 pycmdtools mcmp --print "templates/README.rst.mako" py*/templates/README.rst.mako
 pycmdtools mcmp --print "templates/README.md.mako" py*/templates/README.md.mako
+pycmdtools mcmp --print "templates/README.md.mako" [^py]*/templates/README.md.mako
 pycmdtools mcmp --print "templates/[pkg]/static.py.mako" py*/templates/*/static.py.mako
 pycmdtools mcmp --print "templates/.github/workflows/build.yml.mako" ./*/templates/.github/workflows/build.yml.mako
 pycmdtools mcmp --print "templates/requirements.txt.mako" ./*/templates/requirements.txt.mako
