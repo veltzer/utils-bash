@@ -27,7 +27,7 @@ ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
 
-ALL_SH:=$(shell find bin -name "*.sh")
+ALL_SH:=$(shell find src -name "*.sh")
 ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
 
 ifeq ($(DO_CHECK_SYNTAX),1)
@@ -44,7 +44,7 @@ all: $(ALL)
 .PHONY: install
 install:
 	$(info doing [$@])
-	$(Q)pymakehelper symlink_install --source_folder bin --target_folder ~/install/bin
+	$(Q)pymakehelper symlink_install --source_folder src --target_folder ~/install/bin
 
 .PHONY: debug
 debug:
