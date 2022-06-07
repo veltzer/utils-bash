@@ -9,5 +9,5 @@ COMMENT
 for input in "$@"
 do
 	output=${input%.*}.mp4
-	ffmpeg -i "$input" "$output"
+	ffmpeg -i "$input" -brand mp42 "$output"
 done
