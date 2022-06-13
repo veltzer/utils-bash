@@ -1,6 +1,8 @@
 #!/bin/bash -e
-set -x
-ls -l /home/mark/backups
-ls -l /mnt/sdb1/mark/backups
-ls -l /mnt/external/mark/backups
-ls -l /mnt/seagate/mark/backups
+
+# set -x
+# you can add int_corsair
+for x in ext_wd ext_wd_large ext_seagate
+do
+	ls -l /mnt/$x/mark/backups
+done

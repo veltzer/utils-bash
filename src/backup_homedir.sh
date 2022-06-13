@@ -1,8 +1,12 @@
 #!/bin/bash -e
 
-# backup your home directory excluding folders which have a .NOBACKUP file in them
-# Note the --exclude-tag flag when calling "tar"
-# read about all the "--exclude-tag*" flags and see why this is the best one
+: <<'COMMENT'
+
+backup your home directory excluding folders which have a .NOBACKUP file in them
+Note the --exclude-tag flag when calling "tar"
+read about all the "--exclude-tag*" flags and see why this is the best one
+
+COMMENT
 
 temp="/tmp/homedir.tar.gz"
 target_dir="${HOME}/backups"

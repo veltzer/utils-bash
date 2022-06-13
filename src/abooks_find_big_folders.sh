@@ -2,7 +2,7 @@
 
 : <<'COMMENT'
 
-This script will find folders with large amount of files in them...
+This script will find folders with large amount of files in them
 
 COMMENT
 
