@@ -19,5 +19,6 @@ sudo apt-get update
 # sudo apt-get -y full-upgrade
 # this will install kept back packages as well
 sudo aptitude -y safe-upgrade
+sudo apt-get -y upgrade
 # sudo aptitude -y full-upgrade
 # sudo apt-get --with-new-pkgs upgrade
