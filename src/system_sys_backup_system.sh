@@ -16,13 +16,20 @@ then
 fi
 
 FOLDER="$HOME/insync/backups/system"
-HOSTNAME="$(hostname)"
+TMP_ETC="/tmp/etc.${HOSTNAME}.tar.bz2"
+TARGET_ETC="${FOLDER}/etc.${HOSTNAME}.tar.bz2"
+TARGET_DPKG_SELECTIONS="${FOLDER}/dpkg_selections.${HOSTNAME}.txt"
+TARGET_ALTERNATIVES="${FOLDER}/alternatives.${HOSTNAME}.txt"
+
 # we sudo since we are running as regular user and cannot enter into some folders...
-sudo tar --create --bzip2 --absolute-names --file "/tmp/etc.$HOSTNAME.tar.bz2" /etc
-cp "/tmp/etc.$HOSTNAME.tar.bz2" "$FOLDER"
-sudo rm "/tmp/etc.$HOSTNAME.tar.bz2"
-# this step can be done by any user...
-dpkg --get-selections  > "$FOLDER/dpkg_selections.$HOSTNAME.txt"
-update-alternatives --get-selections > "$FOLDER/alternatives.$HOSTNAME.txt"
-# again - this can be done only as root...
-#sudo chown $USER.$USER etc.$HOSTNAME.tar.bz2 dpkg_selections.$HOSTNAME.txt
+# we do not create the final output file but rather a file in /tmp because it will
+# have root ownership and we want a file with mark ownership.
+echo "creating ${TARGET_ETC}..."
+sudo tar --create --bzip2 --absolute-names --file "${TMP_ETC}" /etc
+cp "${TMP_ETC}" "${TARGET_ETC}"
+sudo rm "${TMP_ETC}"
+# these two steps can be done by any user...
+echo "creating ${TARGET_DPKG_SELECTIONS}..."
+dpkg --get-selections > "${TARGET_DPKG_SELECTIONS}"
+echo "creating ${TARGET_ALTERNATIVES}..."
+update-alternatives --get-selections > "${TARGET_DPKG_SELECTIONS}"
