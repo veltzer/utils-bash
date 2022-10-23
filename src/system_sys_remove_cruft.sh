@@ -21,5 +21,5 @@ then
 else
 	echo "you do not have any rc package..."
 fi
-sudo apt-get autoremove
-sudo apt-get autoclean
+sudo apt-get autoremove -y
+sudo apt-get autoclean -y
