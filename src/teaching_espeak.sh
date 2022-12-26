@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 if [[ $# -ne 3 ]]
 then
@@ -14,6 +14,7 @@ while [[ $sec -gt 0 ]]
 do
 	espeak "there are $sec second to end of $desc"
 	sleep "$dec"
-	(( sec=sec-dec ))
+	(( sec=sec-dec )) || true
 done
 espeak "the $desc is over!"
+sleep 5
