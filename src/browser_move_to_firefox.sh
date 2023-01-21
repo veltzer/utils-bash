@@ -15,16 +15,19 @@ else
 	echo "your current browser is [${current}], that's good..."
 fi
 
-current=$(xdg-mime query default text/html)
-if [ "${current}" != "${browser_wanted}" ]
-then
-	echo "your current text/html handler is [${current}], we will change it to ${browser_wanted}..."
-	xdg-mime default "${browser_wanted}" text/html
-	current=$(xdg-mime query default text/html)
-	echo "your current text/html handler is now [${current}]..."
-else
-	echo "your current text/html handler is [${current}], that's good..."
-fi
+for x in "text/html" "x-scheme-handler/http" "x-scheme-handler/https" "x-scheme-handler/about"
+do
+	current=$(xdg-mime query default "${x}")
+	if [ "${current}" != "${browser_wanted}" ]
+	then
+		echo "your current ${x} handler is [${current}], we will change it to ${browser_wanted}..."
+		xdg-mime default "${browser_wanted}" "${x}"
+		current=$(xdg-mime query default "${x}")
+		echo "your current ${x} handler is now [${current}]..."
+	else
+		echo "your current ${x} handler is [${current}], that's good..."
+	fi
+done
 
 current=$(grep "BrowserApplication" ~/.config/kdeglobals | cut -f 2 -d =)
 if [ "${current}" != "${browser_wanted}" ]
@@ -36,4 +39,3 @@ then
 else
 	echo "your current kde browser is [${current}], that's good..."
 fi
-
