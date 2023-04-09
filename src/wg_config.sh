@@ -1,4 +1,6 @@
 #!/bin/bash -e
+
+# shellcheck source=/dev/null
 source ~/.wireguard_secrets
 
 cat > /tmp/wireguard.conf <<EOF
