@@ -25,7 +25,7 @@ do
 	if [[ -d ${x}.git ]]
 	then
 		echo "doing link for [$x]"
-		ln -s /home/mark/git/repos/${x}.git ${DIR}/${x}.git
+		ln -s "/home/mark/git/repos/${x}.git ${DIR}/${x}.git" .
 	else
 		echo "the project [$x] could not be found"
 	fi

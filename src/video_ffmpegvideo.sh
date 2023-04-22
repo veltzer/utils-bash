@@ -42,7 +42,7 @@ then
    fi
 fi
 
-echo $pad
+echo "$pad"
 
 # Make sure the ffmpeg path is correct
 if [ "$bars" -eq 1 ]
