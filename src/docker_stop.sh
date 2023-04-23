@@ -1,6 +1,5 @@
 #!/bin/bash -e
 
-docker network prune -f
 sudo systemctl --quiet stop docker.service containerd.service
 sudo ip link delete docker0
 if systemctl is-active --quiet docker.service

@@ -13,3 +13,4 @@ for x in $(docker volume ls -q --filter dangling=true)
 do
 	docker volume rm "$x"
 done
+docker network prune -f
