@@ -10,11 +10,11 @@ fi
 sec=$1
 dec=$2
 desc=$3
-while [[ $sec -gt 0 ]]
+while [[ "${sec}" -gt 0 ]]
 do
-	espeak "there are $sec second to end of $desc"
-	sleep "$dec"
+	espeak "there are ${sec} second to end of ${desc}"
+	sleep "${dec}"
 	(( sec=sec-dec )) || true
 done
-espeak "the $desc is over!"
+espeak "the ${desc} is over!"
 sleep 5

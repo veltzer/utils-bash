@@ -17,7 +17,7 @@ do
 	# output=/tmp/${input%.*}.mp4
 	output="${input%.*}.mp4"
 	output_tmp="tmp-${output}"
-	ffmpeg -i "$input" -brand mp42 "$output_tmp"
-	rm -f "$input" "$output"
-	mv -f "$output_tmp" "$output"
+	ffmpeg -i "${input}" -brand mp42 "${output_tmp}"
+	rm -f "${input}" "${output}"
+	mv -f "${output_tmp}" "${output}"
 done

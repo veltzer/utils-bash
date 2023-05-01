@@ -17,29 +17,29 @@ PREFIX="nice"
 
 for x in "$@"
 do
-	echo "$x"
-	y="$x.tmp"
+	echo "${x}"
+	y="${x}.tmp"
 	# this removes the suffix from the file name...
-	name=${x%.*}.$SUFFIX
-	$PREFIX mencoder "$x" -ovc $OVC -oac $OAC -xvidencopts fixed_quant=4 -o "$y"; ret=$?
-	if [[ $ret -ne 0 ]]
+	name=${x%.*}.${SUFFIX}
+	${PREFIX} mencoder "${x}" -ovc "${OVC}" -oac "${OAC}" -xvidencopts fixed_quant=4 -o "${y}"; ret=$?
+	if [[ "${ret}" -ne 0 ]]
 	then
-		echo "problem converting file $x"
-		echo "removing tmp file $y"
-		rm -f "$y"
+		echo "problem converting file ${x}"
+		echo "removing tmp file ${y}"
+		rm -f "${y}"
 		break
 	fi
-	rm -f "$x"; ret=$?
-	if [[ $ret -ne 0 ]]
+	rm -f "${x}"; ret=$?
+	if [[ "${ret}" -ne 0 ]]
 	then
-		echo "problem removing original file $x"
+		echo "problem removing original file ${x}"
 		break
 	fi
-	mv -f "$y" "$name"; ret=$?
-	if [[ $ret -ne 0 ]]
+	mv -f "${y}" "${name}"; ret=$?
+	if [[ "${ret}" -ne 0 ]]
 	then
-		echo "problem moving file $y to $name"
+		echo "problem moving file ${y} to ${name}"
 		break
 	fi
-	echo "file $x converted and replaced with $name successfuly..."
+	echo "file [${x}] converted and replaced with [${name}] successfuly..."
 done

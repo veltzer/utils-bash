@@ -11,6 +11,6 @@ COMMENT
 
 for x in $(docker images --format "{{.Repository}}")
 do
-	docker pull "$x"
+	docker pull "${x}"
 done
 # docker images | grep -v REPOSITORY | awk '{print $1}' | xargs -L1 docker pull
