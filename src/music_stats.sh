@@ -19,7 +19,7 @@ echo -n "number of tracks: "
 find . -mindepth 2 -and -type f | wc -l
 echo -n "size of collection: "
 du -hs . | cut -f 1
-} > $file
+} > "${file}"
 # this is old code that counts files per file type.
 # since there is just one file type now I don't need it
 #for suff in mp3 ogg m4a wma flac

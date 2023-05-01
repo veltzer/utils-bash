@@ -19,6 +19,6 @@ then
 fi
 
 tmpfile=$(mktemp /tmp/txt2pdf.sh.XXXXXX)
-enscript "$1" -p "$tmpfile" 2> /dev/null
-ps2pdf "$tmpfile" "$2"
-rm "$tmpfile"
+enscript "${1}" -p "${tmpfile}" 2> /dev/null
+ps2pdf "${tmpfile}" "${2}"
+rm "${tmpfile}"
