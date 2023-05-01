@@ -10,4 +10,4 @@
 #fi
 
 HOSTNAME="$(hostname)"
-dpkg --get-selections  > dpkg_selections."$HOSTNAME".txt
+dpkg --get-selections  > dpkg_selections."${HOSTNAME}".txt

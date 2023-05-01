@@ -9,13 +9,13 @@ COMMENT
 
 # this script should not be run as root since it needs the user name to change
 # the file ownership to...:)
-if [[ "$USER" == 'root' ]]
+if [[ "${USER}" == 'root' ]]
 then
 	echo "do not run me as root..."
 	exit 1
 fi
 
-FOLDER="$HOME/insync/backups/system"
+FOLDER="${HOME}/insync/backups/system"
 TMP_ETC="/tmp/etc.${HOSTNAME}.tar.bz2"
 TARGET_ETC="${FOLDER}/etc.${HOSTNAME}.tar.bz2"
 TARGET_DPKG_SELECTIONS="${FOLDER}/dpkg_selections.${HOSTNAME}.txt"

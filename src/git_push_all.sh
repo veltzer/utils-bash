@@ -2,11 +2,11 @@
 
 for x in *
 do
-	if [[ -d "$x/.git" ]]
+	if [[ -d "${x}/.git" ]]
 	then
-		echo "doing [$x]"
+		echo "doing [${x}]"
 		(
-		cd "$x" || exit
+		cd "${x}" || exit
 		#git push --tags
 		git push
 		)

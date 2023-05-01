@@ -7,5 +7,5 @@
 
 for x in $(ip -br link show type bridge | tr -s " " | cut -f 1 -d " ")
 do
-	sudo ip link del "$x"
+	sudo ip link del "${x}"
 done

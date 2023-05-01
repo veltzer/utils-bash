@@ -17,12 +17,12 @@ sudo aptitude install -y ant # uncomment if you don't have ant
 COMMENT
 
 CVSROOT=:pserver:anonymous:anonymous@dev.w3.org:/sources/public cvs checkout 2002/css-validator
-mkdir 2002/css-validator/lib
-TOMCAT6_VERSION='6.0.37'
-wget "http://www.apache.org/dist/tomcat/tomcat-6/v$TOMCAT6_VERSION/bin/apache-tomcat-$TOMCAT6_VERSION.tar.gz"
-tar xvf apache-tomcat-$TOMCAT6_VERSION.tar.gz
-mv apache-tomcat-$TOMCAT6_VERSION/lib/servlet-api.jar 2002/css-validator/lib/servlet.jar
-rm -rf apache-tomcat-$TOMCAT6_VERSION apache-tomcat-$TOMCAT6_VERSION.tar.gz
-cd 2002/css-validator || exit
+mkdir "2002/css-validator/lib"
+TOMCAT6_VERSION="6.0.37"
+wget "http://www.apache.org/dist/tomcat/tomcat-6/v${TOMCAT6_VERSION}/bin/apache-tomcat-${TOMCAT6_VERSION}.tar.gz"
+tar xvf "apache-tomcat-${TOMCAT6_VERSION}.tar.gz"
+mv "apache-tomcat-${TOMCAT6_VERSION}/lib/servlet-api.jar" "2002/css-validator/lib/servlet.jar"
+rm -rf "apache-tomcat-${TOMCAT6_VERSION}" "apache-tomcat-${TOMCAT6_VERSION}.tar.gz"
+cd "2002/css-validator" || exit
 ant jar
 # usage example: java -jar css-validator.jar "http://csszengarden.com/"
