@@ -13,9 +13,9 @@ COMMENT
 
 for x in $(docker ps -q)
 do
-	docker kill "$x"
+	docker kill "${x}"
 done
 for x in $(docker container ls --all -q)
 do
-	docker container rm "$x"
+	docker container rm "${x}"
 done

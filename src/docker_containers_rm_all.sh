@@ -9,5 +9,5 @@ COMMENT
 
 for x in $(docker container ls --all -q)
 do
-	docker container rm "$x"
+	docker container rm "${x}"
 done

@@ -11,5 +11,5 @@ COMMENT
 
 for x in $(docker ps -q)
 do
-	docker kill "$x"
+	docker kill "${x}"
 done

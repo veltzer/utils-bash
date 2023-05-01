@@ -2,10 +2,10 @@
 
 for x in *
 do
-	if [[ -d "$x" ]]
+	if [[ -d "${x}" ]]
 	then
-		echo "doing [$x]"
-		cd "$x" || exit
+		echo "doing [${x}]"
+		cd "${x}" || exit
 		(
 			git fsck
 		)
