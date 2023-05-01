@@ -15,28 +15,28 @@ fi
 
 for source in "$@"
 do
-	if [ -f "$source" ]
+	if [ -f "${source}" ]
 	then
-		echo "Encoding $source"
+		echo "Encoding ${source}"
 		base=${source%.*} # remove suffix
-		dest="$base.ogg"
+		dest="${base}.ogg"
 
-		tmp=tmp.wav
-		if [ -e $tmp ]
+		tmp="tmp.wav"
+		if [ -e "${tmp}" ]
 		then
-			rm -f $tmp
+			rm -f "${tmp}"
 		fi
-		mkfifo $tmp
+		mkfifo "${tmp}"
 
 		#Rip with Mplayer / encode with oggenc
-		mplayer -quiet -vo null -vc null -ao pcm:waveheader:file=$tmp "$source" &>/dev/null \
-		& oggenc -o "$dest" $tmp;
+		mplayer -quiet -vo null -vc null -ao "pcm:waveheader:file=${tmp}" "${source}" &>/dev/null \
+		& oggenc -o "${dest}" "${tmp}"
 		stat=$?
-		rm -f $tmp
+		rm -f "${tmp}"
 
-		if [ $stat -ne 0 ]
+		if [ "${stat}" -ne 0 ]
 		then
-			echo "Error $stat"
+			echo "Error ${stat}"
 		fi
 	fi
 done

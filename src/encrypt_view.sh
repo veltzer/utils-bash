@@ -61,6 +61,6 @@ then
 fi
 
 # edit the file
-$editor "$tmp"
+"${editor}" "${tmp}"
 
-$rm "$tmp"
+"${rm}" "${tmp}"

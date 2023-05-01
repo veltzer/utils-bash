@@ -18,7 +18,7 @@ fi
 
 for var in "$@"
 do
-	read -rei "$var" newfilename
-	command mv -v -- "$var" "$newfilename"
+	read -rei "${var}" newfilename
+	command mv -v -- "${var}" "${newfilename}"
 done
 

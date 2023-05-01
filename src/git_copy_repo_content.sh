@@ -8,4 +8,4 @@ fi
 
 from=$1
 to=$2
-(cd "$from" && git archive --format=tar HEAD) | (cd "$to" && tar xf -)
+(cd "${from}" && git archive --format=tar HEAD) | (cd "${to}" && tar xf -)
