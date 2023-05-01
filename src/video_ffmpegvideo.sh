@@ -22,30 +22,30 @@ height=$(/usr/bin/mediainfo --Inform=Video\;%Height% "$1")
 
 audcodec="ac3"
 
-aspect=$(echo "scale=2; ($width/$height)*100" | bc | awk -F '.' '{ print $1; exit; }' )
+aspect=$(echo "scale=2; (${width}/${height})*100" | bc | awk -F '.' '{ print $1; exit; }' )
 
-echo "$aspect"
+echo "${aspect}"
 comp=175
 bars=0
 
-if [ "$aspect" -gt "$comp" ]
+if [ "${aspect}" -gt "${comp}" ]
 then
    # needs bars top and bottom
    bars=1
-   pad=$(echo "scale=2; (($width/1.75)-$height)/2" | bc | awk -F '.' '{ print $1; exit; }' )
+   pad=$(echo "scale=2; ((${width}/1.75)-${height}))/2" | bc | awk -F '.' '{ print $1; exit; }' )
    mod=$((pad % 2))
    compmod=1
-   if [ "$mod" -eq "$compmod" ]
+   if [ "${mod}" -eq "${compmod}" ]
    then
       # pad must be an even number
       pad=$((pad+1))
    fi
 fi
 
-echo "$pad"
+echo "${pad}"
 
 # Make sure the ffmpeg path is correct
-if [ "$bars" -eq 1 ]
+if [ "${bars}" -eq 1 ]
 then
    # bars top and bottom
   exec ffmpeg -i "$1" -b "${VBITRATE}" -maxrate "${VBITRATE}" -minrate "${VBITRATE}" \

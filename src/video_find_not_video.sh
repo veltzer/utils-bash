@@ -21,7 +21,7 @@ else
 fi
 
 find . \
--mindepth "$depth" \
+-mindepth "${depth}" \
 -type f \
 -and -not -name "*.avi" \
 -and -not -name "*.flv" \
