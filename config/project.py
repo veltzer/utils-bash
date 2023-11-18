@@ -1,4 +1,4 @@
 name = "utils-bash"
-description_short = "Bash utilities"
+description_short = "Various utilities written in Bash"
 keywords = [
 ]
