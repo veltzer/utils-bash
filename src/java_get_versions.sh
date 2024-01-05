@@ -2,16 +2,8 @@
 
 : <<'COMMENT'
 
-This script installs java on an ubuntu system.
-You need to supply the version number.
+This script shows you what jdk/jre java versions are there in the ubuntu repository.
 
 COMMENT
 
-version=$1
-echo "version: ${version}"
-sudo apt install\
-	"openjdk-${version}-jdk"\
-	"openjdk-${version}-jdk-headless"\
-	"openjdk-${version}-jre"\
-	"openjdk-${version}-jre-headless"\
-	"openjdk-${version}-doc"
+apt-cache search openjdk | grep -- -jdk
