@@ -1,4 +1,5 @@
 #!/bin/bash -e
 
-# the --keep-context is to keep minikube from overwriting ~/.kube/config
-minikube stop --keep-context
+# there is no --keep-context flag to "minikube stop"
+export KUBECONFIG="${HOME}/.minikube.config"
+minikube stop 
