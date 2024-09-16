@@ -4,11 +4,12 @@ rm -rf /tmp/chromedriver-linux64 || true
 rm -f /tmp/chromedriver_linux64.zip || true
 
 # Fetch the JSON data
-json_data=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+# json_data=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
 # echo "${json_data}"
 
 # Extract the corresponding ChromeDriver version
-chromedriver_version=$(echo "${json_data}" | jq -r '.versions[-1]["version"]')
+# chromedriver_version=$(echo "${json_data}" | jq -r '.versions[-1]["version"]')
+chromedriver_version=$(google-chrome --version | grep -o '[0-9.]\+')
 # echo "version is [${chromedriver_version}]"
 
 # Construct the download URL
