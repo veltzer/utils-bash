@@ -1,6 +1,6 @@
-##########
-# params #
-##########
+##############
+# parameters #
+##############
 # do you want to see the commands executed ?
 DO_MKDBG:=0
 # do you want to check bash syntax?
@@ -21,11 +21,6 @@ else # DO_MKDBG
 Q:=@
 #.SILENT:
 endif # DO_MKDBG
-
-# dependency on the makefile itself
-ifeq ($(DO_ALLDEP),1)
-.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
-endif # DO_ALLDEP
 
 ALL_SH:=$(shell find src -name "*.sh")
 ALL_STAMP:=$(addprefix out/, $(addsuffix .stamp, $(ALL_SH)))
@@ -74,3 +69,10 @@ $(ALL_STAMP): out/%.stamp: % .shellcheckrc
 	$(info doing [$@])
 	$(Q)shellcheck --shell=bash --external-sources --source-path="$$HOME" $<
 	$(Q)pymakehelper touch_mkdir $@
+
+##########
+# alldep #
+##########
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
+endif # DO_ALLDEP
