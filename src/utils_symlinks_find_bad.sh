@@ -12,6 +12,8 @@ COMMENT
 #find . -type l -and -not -exec test -e {} \; -print
 # it seems that firefox always creates a lock dangling symlink which
 # I have no great desire to see.
+
+: <<'COMMENT'
 find .\
 	-type l\
 	-and -not -exec test -e {} \;\
@@ -19,4 +21,10 @@ find .\
 	-and -not -ipath "*/google-chrome/*"\
 	-and -not -ipath "*/spyder.lock"\
 	-and -not -ipath "*/whatsdesk/*"\
+	-print
+COMMENT
+
+find .\
+	-type l\
+	-and -not -exec test -e {} \;\
 	-print
