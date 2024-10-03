@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # remove all snap packages and snap itself
 

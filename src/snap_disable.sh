@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 sudo systemctl disable snapd.service
 sudo systemctl disable snapd.socket
