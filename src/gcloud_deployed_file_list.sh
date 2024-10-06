@@ -8,6 +8,9 @@ then
 	exit 1
 fi
 
+# get the latest version deployed
+# gcloud app version list --format=json | jq [...]
+
 service="default"
 version="$1"
-gcloud app versions describe "${version}" --service "${service}"
+gcloud app versions describe "${version}" --service "${service}" --format=json | jq -r ".deployment.files | keys[]"
