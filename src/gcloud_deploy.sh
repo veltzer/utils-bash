@@ -1,3 +1,3 @@
 #!/bin/bash -e
-# --verbosity=info
-gcloud app deploy --promote --stop-previous-version --version=1 --quiet
+# --verbosity=info --version=1
+gcloud app deploy --promote --stop-previous-version --quiet
