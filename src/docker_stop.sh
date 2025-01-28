@@ -1,9 +1,17 @@
 #!/bin/bash -e
 
+if systemctl is-active --quiet docker.socket
+then
+	echo "docker.socket is up, stopping it"
+	sudo systemctl --quiet stop docker.socket
+else
+	echo "docker.socket is down. Good"
+fi
+
 if systemctl is-active --quiet docker.service
 then
 	echo "docker.service is up, stopping it"
-	sudo systemctl --quiet stop docker.service containerd.service
+	sudo systemctl --quiet stop docker.service
 else
 	echo "docker.service is down. Good"
 fi
@@ -11,7 +19,7 @@ fi
 if systemctl is-active --quiet containerd.service
 then
 	echo "containerd.service is up, stopping it"
-	sudo systemctl --quiet stop docker.service containerd.service
+	sudo systemctl --quiet stop containerd.service
 else
 	echo "containerd.service is down. Good"
 fi
