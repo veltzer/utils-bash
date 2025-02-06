@@ -4,4 +4,5 @@
 # the --keep-context is to keep minikube from overwriting ~/.kube/config
 # there is no --kubeconfig flag to "minikube start"
 # export KUBECONFIG="${HOME}/.minikube.config"
-minikube start --driver=docker
+# on old ubuntu we need to add --driver=docker
+minikube start
