@@ -22,7 +22,7 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ALL_SH_SRC:=$(shell find src -type f -and -name "*.sh")
+ALL_SH_SRC:=$(shell find src -type f -and -name "*.sh" 2>/dev/null)
 ALL_SH_CHECK:=$(addprefix out/, $(addsuffix .check, $(ALL_SH_SRC)))
 
 ifeq ($(DO_CHECK_SYNTAX),1)
