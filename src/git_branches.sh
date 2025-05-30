@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # the idea was taken from:
 # https://github.com/bahmutov/git-branches/blob/master/branches.sh

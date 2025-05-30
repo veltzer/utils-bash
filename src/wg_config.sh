@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # shellcheck source=/dev/null
 source ~/.wireguard_secrets

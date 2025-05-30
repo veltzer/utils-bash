@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 utils_hibernate_disable.sh
 youtube-dl\

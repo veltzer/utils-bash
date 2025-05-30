@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # we need to be run as root...
 if test "${USER}" != "root"

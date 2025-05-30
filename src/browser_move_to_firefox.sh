@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # lets print all the options that we have for browsers...
 # locate .desktop | grep -E "/mozilla-firefox.desktop|/firefox.desktop|/google-chrome.desktop|/org.kde.konqueror.desktop" -

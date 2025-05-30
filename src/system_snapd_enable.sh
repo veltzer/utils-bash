@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 sudo systemctl unmask snapd.service snapd.socket
 sudo systemctl enable snapd.service snapd.socket

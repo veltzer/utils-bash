@@ -1,3 +1,3 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 find -L . -type f -exec chmod 444 '{}' \+
 find -L . -type d -exec chmod 755 '{}' \+

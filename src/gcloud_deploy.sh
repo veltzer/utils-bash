@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # Deploy the new version first
 gcloud app deploy --promote --stop-previous-version --quiet

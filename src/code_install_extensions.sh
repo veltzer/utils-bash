@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 # Bash script to install VSCode extensions
 
 while read -r extension; do

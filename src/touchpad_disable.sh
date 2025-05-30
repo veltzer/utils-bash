@@ -1,3 +1,3 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 xinput disable "Elan Touchpad"

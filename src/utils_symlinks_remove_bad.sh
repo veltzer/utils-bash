@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # this is a small script to find bad symbolic links and printout their
 # names.

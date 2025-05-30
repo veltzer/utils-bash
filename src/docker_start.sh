@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 sudo systemctl start docker.service
 if systemctl is-active --quiet docker.service

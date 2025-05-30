@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # if [ $# -ne 1 ]; then
 # 	echo "Error: This script requires a version"

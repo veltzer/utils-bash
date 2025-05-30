@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 if [[ $# -ne 1 ]]
 then
 	echo "usage: $0 [file.sql]"

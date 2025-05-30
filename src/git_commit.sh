@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 if [[ $# -gt 1 ]]
 then
 	echo "You must pass at most one argument to this script..."

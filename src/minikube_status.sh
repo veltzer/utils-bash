@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 minikube status
 # if systemctl is-active --quiet docker.service

@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 rm -rf /tmp/chromedriver-linux64 || true
 rm -f /tmp/chromedriver_linux64.zip || true

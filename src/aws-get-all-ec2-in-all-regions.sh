@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 for region in $(aws ec2 describe-regions --output text | cut -f4)
 do

@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # Fetch the latest Maven version from the Apache Maven download page
 download_page=$(curl -s https://maven.apache.org/download.cgi)

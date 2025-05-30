@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # run firefox with my teaching profile
 firefox -P teaching 1> /dev/null 2> /dev/null &

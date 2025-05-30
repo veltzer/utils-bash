@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # This is a small script to show you all the zombie processes
 # on the current machie

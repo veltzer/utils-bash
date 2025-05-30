@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 for x in $(echo "show tables" | mysql --skip-column-names)
 do

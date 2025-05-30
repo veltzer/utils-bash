@@ -1,2 +1,2 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 sudo iwlist scanning

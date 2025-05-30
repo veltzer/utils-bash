@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
 # first check that we are in the right folder
 if [[ ! -d by_name ]]

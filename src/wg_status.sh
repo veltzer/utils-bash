@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 if pidof wg-crypt-wiregu > /dev/null
 then
 	echo "wireguard is up"
