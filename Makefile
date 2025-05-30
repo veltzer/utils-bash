@@ -3,10 +3,10 @@
 ##############
 # do you want to see the commands executed ?
 DO_MKDBG:=0
-# do you want to check bash syntax?
-DO_CHECK_SYNTAX:=1
 # do you want dependency on the Makefile itself ?
 DO_ALLDEP:=1
+# do you want to check bash syntax?
+DO_SH_SYNTAX:=1
 
 ########
 # code #
@@ -22,12 +22,12 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ALL_SH_SRC:=$(shell find src -type f -and -name "*.sh" 2>/dev/null)
-ALL_SH_CHECK:=$(addprefix out/, $(addsuffix .check, $(ALL_SH_SRC)))
+SH_SRC:=$(shell find . -type f -name "*.sh" -and -not -path "./.venv/*" -and -not -path "./node_modules/*" -printf "%P\n")
+SH_CHECK:=$(addprefix out/, $(addsuffix .check, $(SH_SRC)))
 
-ifeq ($(DO_CHECK_SYNTAX),1)
-ALL+=$(ALL_SH_CHECK)
-endif # DO_CHECK_SYNTAX
+ifeq ($(DO_SH_SYNTAX),1)
+ALL+=$(SH_CHECK)
+endif # DO_SH_SYNTAX
 
 #########
 # rules #
@@ -44,13 +44,13 @@ install:
 .PHONY: debug
 debug:
 	$(info doing [$@])
-	$(info ALL_SH_SRC is $(ALL_SH_SRC))
-	$(info ALL_SH_CHECK is $(ALL_SH_CHECK))
+	$(info SH_SRC is $(SH_SRC))
+	$(info SH_CHECK is $(SH_CHECK))
 
 .PHONY: first_line_stats
 first_line_stats:
 	$(info doing [$@])
-	$(Q)head -1 -q $(ALL_SH_SRC) | sort -u
+	$(Q)head -1 -q $(SH_SRC) | sort -u
 
 .PHONY: clean
 clean:
@@ -65,7 +65,7 @@ clean_hard:
 ############
 # patterns #
 ############
-$(ALL_SH_CHECK): out/%.check: % .shellcheckrc
+$(SH_CHECK): out/%.check: % .shellcheckrc
 	$(info doing [$@])
 	$(Q)shellcheck --shell=bash --external-sources --source-path="$${HOME}" $<
 	$(Q)pymakehelper touch_mkdir $@
