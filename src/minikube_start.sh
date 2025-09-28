@@ -5,5 +5,5 @@
 # there is no --kubeconfig flag to "minikube start"
 # export KUBECONFIG="${HOME}/.minikube.config"
 # on old ubuntu we need to add --driver=docker
-minikube start
-# minikube start --nodes 3
+# minikube start
+minikube start --nodes 3
