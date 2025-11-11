@@ -1,9 +1,9 @@
 #!/bin/bash -eu
 
-# This script will remove all non profile extensions from vscode
+# This script will remove all global extensions from vscode
 
 EXTENSIONS="${HOME}/.vscode/extensions"
-if [ -f "${EXTENSIONS}" ]
+if [ -d "${EXTENSIONS}" ]
 then
 	echo "removing all extensions"
 	rm -rf "${EXTENSIONS}"
