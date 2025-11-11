@@ -1,5 +1,7 @@
 #!/bin/bash -eu
-# Bash script to install VSCode extensions
+
+# This script will remove all vscode extensions and then will install the exact extensions
+# listed in the local file ".vscode-extensions"
 
 echo "removing all extensions"
 rm -rf ~/.vscode/extensions
