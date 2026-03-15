@@ -2,4 +2,6 @@
 
 # Loging to cargo with my token
 
-cargo login "$(pass show keys/crates.io)"
+# deprecated
+# cargo login "$(pass show keys/crates.io)"
+pass show keys/crates.io | cargo login
