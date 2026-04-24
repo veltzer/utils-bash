@@ -62,15 +62,15 @@ if [[ ${#RENAME_PAIRS[@]} -eq 0 ]]; then
     printf "  %-20s  %-20s  %s\n" DIRECTORY "DISPLAY NAME" ACCOUNT
     printf "  %-20s  %-20s  %s\n" --------- ------------ -------
     while IFS=$'\t' read -r d n e; do
-        printf "  %-20s  %-20s  %s\n" "$d" "$n" "$e"
+        printf "  %-20s  %-20s  %s\n" "${d}" "${n}" "${e}"
     done < <(list_profiles)
     echo
     echo "enter renames as OLD=NEW, empty line to finish:"
     while true; do
         read -r -p "rename> " pair || break
-        [[ -z "$pair" ]] && break
-        [[ "$pair" == *=* ]] || { echo "  (need OLD=NEW)"; continue; }
-        RENAME_PAIRS+=("$pair")
+        [[ -z "${pair}" ]] && break
+        [[ "${pair}" == *=* ]] || { echo "  (need OLD=NEW)"; continue; }
+        RENAME_PAIRS+=("${pair}")
     done
 fi
 
@@ -80,54 +80,54 @@ declare -a OLD_NAMES=() NEW_NAMES=()
 for pair in "${RENAME_PAIRS[@]}"; do
     old="${pair%%=*}"
     new="${pair#*=}"
-    [[ -z "$old" || -z "$new" ]] && { echo "bad pair: $pair" >&2; exit 1; }
-    [[ "$old" == "Default" ]] && { echo "refusing to rename Default" >&2; exit 1; }
-    [[ "$new" == "Default" ]] && { echo "refusing to rename to Default" >&2; exit 1; }
-    [[ "$new" == *"/"* ]] && { echo "bad new name: $new" >&2; exit 1; }
-    [[ -d "${CHROME_CONFIG}/${old}" ]] || { echo "no such profile dir: $old" >&2; exit 1; }
-    [[ -e "${CHROME_CONFIG}/${new}" ]] && { echo "dest exists: $new" >&2; exit 1; }
-    OLD_NAMES+=("$old")
-    NEW_NAMES+=("$new")
+    [[ -z "${old}" || -z "${new}" ]] && { echo "bad pair: ${pair}" >&2; exit 1; }
+    [[ "${old}" == "Default" ]] && { echo "refusing to rename Default" >&2; exit 1; }
+    [[ "${new}" == "Default" ]] && { echo "refusing to rename to Default" >&2; exit 1; }
+    [[ "${new}" == *"/"* ]] && { echo "bad new name: ${new}" >&2; exit 1; }
+    [[ -d "${CHROME_CONFIG}/${old}" ]] || { echo "no such profile dir: ${old}" >&2; exit 1; }
+    [[ -e "${CHROME_CONFIG}/${new}" ]] && { echo "dest exists: ${new}" >&2; exit 1; }
+    OLD_NAMES+=("${old}")
+    NEW_NAMES+=("${new}")
 done
 
 echo
 echo "plan:"
 for i in "${!OLD_NAMES[@]}"; do
-    echo "  '${OLD_NAMES[$i]}' -> '${NEW_NAMES[$i]}'"
+    echo "  '${OLD_NAMES[${i}]}' -> '${NEW_NAMES[${i}]}'"
 done
 
-if [[ $DRY_RUN -eq 1 ]]; then
+if [[ ${DRY_RUN} -eq 1 ]]; then
     echo "--dry-run: no changes made"
     exit 0
 fi
 
 echo
 read -r -p "proceed? [y/N] " c
-[[ "$c" == "y" || "$c" == "Y" ]] || { echo "aborted"; exit 0; }
+[[ "${c}" == "y" || "${c}" == "Y" ]] || { echo "aborted"; exit 0; }
 
-if [[ $DO_BACKUP -eq 1 ]]; then
-    mkdir -p "$BACKUP_DIR"
+if [[ ${DO_BACKUP} -eq 1 ]]; then
+    mkdir -p "${BACKUP_DIR}"
     ts=$(date +%Y%m%d-%H%M%S)
     backup_file="${BACKUP_DIR}/chrome-config-${ts}.tar"
-    echo "backing up to $backup_file..."
-    tar -cf "$backup_file" -C "$HOME/.config" google-chrome
-    echo "backup: $(du -h "$backup_file" | cut -f1)"
+    echo "backing up to ${backup_file}..."
+    tar -cf "${backup_file}" -C "${HOME}/.config" google-chrome
+    echo "backup: $(du -h "${backup_file}" | cut -f1)"
 fi
 
 echo "renaming directories..."
 for i in "${!OLD_NAMES[@]}"; do
-    mv -v "${CHROME_CONFIG}/${OLD_NAMES[$i]}" "${CHROME_CONFIG}/${NEW_NAMES[$i]}"
+    mv -v "${CHROME_CONFIG}/${OLD_NAMES[${i}]}" "${CHROME_CONFIG}/${NEW_NAMES[${i}]}"
 done
 
 echo "rewriting Local State..."
 mapping=$(
     for i in "${!OLD_NAMES[@]}"; do
-        jq -n --arg o "${OLD_NAMES[$i]}" --arg n "${NEW_NAMES[$i]}" '{($o):$n}'
+        jq -n --arg o "${OLD_NAMES[${i}]}" --arg n "${NEW_NAMES[${i}]}" '{($o):$n}'
     done | jq -s 'add'
 )
 
 tmp=$(mktemp)
-jq --argjson m "$mapping" '
+jq --argjson m "${mapping}" '
     .profile.info_cache |= with_entries(
         if ($m | has(.key)) then .key = $m[.key] else . end)
   | .profile.last_used |= (
@@ -136,27 +136,27 @@ jq --argjson m "$mapping" '
         .profile.profiles_order |= map(
             if ($m | has(.)) then $m[.] else . end)
     else . end
-' "$LOCAL_STATE" > "$tmp"
+' "${LOCAL_STATE}" > "${tmp}"
 
-if [[ ! -s "$tmp" ]] || ! jq empty "$tmp" 2>/dev/null; then
-    echo "ERROR: jq produced invalid JSON. temp file at $tmp" >&2
-    echo "directories already renamed - restore from $backup_file" >&2
+if [[ ! -s "${tmp}" ]] || ! jq empty "${tmp}" 2>/dev/null; then
+    echo "ERROR: jq produced invalid JSON. temp file at ${tmp}" >&2
+    echo "directories already renamed - restore from ${backup_file}" >&2
     exit 1
 fi
-mv "$tmp" "$LOCAL_STATE"
+mv "${tmp}" "${LOCAL_STATE}"
 echo "done."
 
 echo
 echo "result:"
 while IFS=$'\t' read -r d n e; do
     m=" "; [[ -d "${CHROME_CONFIG}/${d}" ]] || m="!"
-    printf "%s %-20s  %-20s  %s\n" "$m" "$d" "$n" "$e"
+    printf "%s %-20s  %-20s  %s\n" "${m}" "${d}" "${n}" "${e}"
 done < <(list_profiles)
 
 echo
 echo "next: test with"
 for n in "${NEW_NAMES[@]}"; do
-    echo "  google-chrome --profile-directory=\"$n\""
+    echo "  google-chrome --profile-directory=\"${n}\""
 done
 echo "then re-run regen-chrome-launchers.sh to update .desktop files"
-[[ $DO_BACKUP -eq 1 ]] && echo "restore: tar -xf $backup_file -C $HOME/.config"
+[[ ${DO_BACKUP} -eq 1 ]] && echo "restore: tar -xf ${backup_file} -C ${HOME}/.config"
