@@ -25,10 +25,8 @@ set -euo pipefail
 # Pick the right kwriteconfig for Plasma 6 vs 5
 if command -v kwriteconfig6 >/dev/null 2>&1; then
     KW="kwriteconfig6"
-    KR="kreadconfig6"
 elif command -v kwriteconfig5 >/dev/null 2>&1; then
     KW="kwriteconfig5"
-    KR="kreadconfig5"
 else
     echo "error: neither kwriteconfig6 nor kwriteconfig5 found" >&2
     echo "this script requires KDE Plasma" >&2
