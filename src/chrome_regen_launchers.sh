@@ -39,31 +39,29 @@ fi
 
 mkdir -p "${APPS_DIR}"
 
-# --- clean up old launchers ------------------------------------------
+# --- enumerate stale launchers (defer deletion until after we know what we'd write) ---
 
-# Remove launchers we previously generated (matched by our prefix).
-echo "removing old generated launchers..."
-removed=0
+# Collect launchers we previously generated (matched by our prefix).
+declare -a stale_ours=()
 for f in "${APPS_DIR}/${LAUNCHER_PREFIX}"*.desktop; do
     [[ -f "${f}" ]] || continue
-    rm -v "${f}"
-    removed=$((removed + 1))
+    stale_ours+=("${f}")
 done
 
-# Also sweep any user-local launchers that point at google-chrome with a
-# --profile-directory flag and weren't written by us — these are stale
-# hand-rolled ones from past attempts. We do NOT touch system-wide
-# launchers in /usr/share/applications/.
+# Also collect user-local launchers that point at google-chrome with a
+# --profile-directory flag and weren't written by us — stale hand-rolled ones.
+# We do NOT touch system-wide launchers in /usr/share/applications/.
+declare -a stale_other=()
 for f in "${APPS_DIR}"/*.desktop; do
     [[ -f "${f}" ]] || continue
-    # skip files we're about to generate ourselves (already removed above)
+    # skip our own prefix — already covered above
+    case "$(basename "${f}")" in
+        "${LAUNCHER_PREFIX}"*) continue ;;
+    esac
     if grep -qE '^Exec=.*google-chrome.*--profile-directory=' "${f}" 2>/dev/null; then
-        echo "removing stale per-profile launcher: ${f}"
-        rm -f "${f}"
-        removed=$((removed + 1))
+        stale_other+=("${f}")
     fi
 done
-echo "removed ${removed} launcher(s)."
 
 # --- enumerate profiles and generate launchers -----------------------
 
@@ -82,10 +80,14 @@ if [[ -z "${profiles}" ]]; then
     exit 1
 fi
 
-echo
-echo "generating launchers..."
+# Build desired launcher content for each profile, and only write files whose
+# on-disk content differs. Track which of our existing files are still wanted
+# so we don't delete-then-rewrite identical files.
 
-count=0
+declare -A wanted_paths=()
+wrote=0
+unchanged=0
+
 while IFS=$'\t' read -r dir name email; do
     # Sanitize the display name for use in a filename:
     # lowercase, spaces -> hyphens, strip anything that isn't [a-z0-9-].
@@ -97,6 +99,7 @@ while IFS=$'\t' read -r dir name email; do
     [[ -z "${slug}" ]] && slug=$(echo "${dir}" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
 
     out="${APPS_DIR}/${LAUNCHER_PREFIX}${slug}.desktop"
+    wanted_paths["${out}"]=1
 
     # Pretty comment: "Personal (mark.veltzer.personal@gmail.com)"
     if [[ -n "${email}" ]]; then
@@ -105,7 +108,7 @@ while IFS=$'\t' read -r dir name email; do
         comment="${name}"
     fi
 
-    cat > "${out}" <<EOF
+    desired=$(cat <<EOF
 [Desktop Entry]
 Version=1.0
 Name=Chrome — ${name}
@@ -128,19 +131,45 @@ Exec=${CHROME_BIN} --profile-directory="${dir}" --new-window
 Name=New Incognito Window
 Exec=${CHROME_BIN} --profile-directory="${dir}" --incognito
 EOF
+)
 
-    echo "  wrote ${out}  (${dir} → ${name})"
-    count=$((count + 1))
+    if [[ -f "${out}" ]] && [[ "$(cat "${out}")" == "${desired}" ]]; then
+        echo "  unchanged ${out}  (${dir} → ${name})"
+        unchanged=$((unchanged + 1))
+    else
+        printf '%s\n' "${desired}" > "${out}"
+        echo "  wrote ${out}  (${dir} → ${name})"
+        wrote=$((wrote + 1))
+    fi
 done <<< "${profiles}"
 
-# --- refresh desktop database ----------------------------------------
+# --- remove stale launchers that we are no longer generating ---------
 
-if command -v update-desktop-database >/dev/null 2>&1; then
+removed=0
+for f in "${stale_ours[@]}"; do
+    # Keep it if we just wrote / confirmed it above.
+    [[ -n "${wanted_paths[${f}]:-}" ]] && continue
+    rm -v "${f}"
+    removed=$((removed + 1))
+done
+for f in "${stale_other[@]}"; do
+    echo "removing stale per-profile launcher: ${f}"
+    rm -f "${f}"
+    removed=$((removed + 1))
+done
+
+# --- refresh desktop database (only if something actually changed) ---
+
+if (( wrote > 0 || removed > 0 )); then
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        echo
+        echo "refreshing desktop database..."
+        update-desktop-database "${APPS_DIR}" 2>/dev/null || true
+    fi
     echo
-    echo "refreshing desktop database..."
-    update-desktop-database "${APPS_DIR}" 2>/dev/null || true
+    echo "done. wrote ${wrote}, unchanged ${unchanged}, removed ${removed} launcher(s) in ${APPS_DIR}."
+    echo "they should appear in KRunner / Kickoff within a few seconds."
+else
+    echo
+    echo "no changes were needed — ${unchanged} launcher(s) already up to date in ${APPS_DIR}."
 fi
-
-echo
-echo "done. generated ${count} launcher(s) in ${APPS_DIR}."
-echo "they should appear in KRunner / Kickoff within a few seconds."
