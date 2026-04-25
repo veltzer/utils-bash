@@ -101,6 +101,8 @@ while IFS=$'\t' read -r dir name email; do
     out="${APPS_DIR}/${LAUNCHER_PREFIX}${slug}.desktop"
     wanted_paths["${out}"]=1
 
+    wmclass="chrome-${slug}"
+
     # Pretty comment: "Personal (mark.veltzer.personal@gmail.com)"
     if [[ -n "${email}" ]]; then
         comment="${name} (${email})"
@@ -114,13 +116,14 @@ Version=1.0
 Name=Chrome — ${name}
 GenericName=Web Browser
 Comment=${comment}
-Exec=${CHROME_BIN} --profile-directory="${dir}" %U
+Exec=${CHROME_BIN} --profile-directory="${dir}" --class="${wmclass}" %U
 Terminal=false
 Icon=google-chrome
 Type=Application
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 StartupNotify=true
+StartupWMClass=${wmclass}
 Actions=new-window;new-incognito-window;
 
 [Desktop Action new-window]
