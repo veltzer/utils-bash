@@ -1,0 +1,26 @@
+[processor.shellcheck]
+src_dirs = ["src"]
+args = ["--shell=bash", "--external-sources"]
+
+[processor.mypy]
+src_dirs = ["config"]
+
+[processor.ruff]
+src_dirs = ["config"]
+
+# Render the tera.templates/ files (requirements.thawed.txt) from the config
+# python files they load. Re-render whenever any of these change.
+[processor.tera]
+dep_inputs = [
+    "config/project.py",
+    "config/personal.py",
+    "config/python.py",
+    "config/version.py",
+    "config/shared.py",
+]
+
+[analyzer.tera]
+
+[analyzer.python]
+
+[analyzer.markdown]
