@@ -1,0 +1,7 @@
+# Repo-specific overlay. Deep-merged over the canonical rsconstruct.toml.
+
+# This repo is a library of bash utilities that `source` one another, so
+# shellcheck needs --external-sources to follow those directives. Keeps the
+# canonical --severity=error/--shell=bash and adds the flag.
+[processor.shellcheck]
+args = ["--severity=error", "--shell=bash", "--external-sources"]
