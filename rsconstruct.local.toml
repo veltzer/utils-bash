@@ -1,16 +1,1 @@
 # Repo-specific overlay. Deep-merged over the canonical rsconstruct.toml.
-
-# This repo is a library of bash utilities that `source` one another, so
-# shellcheck needs --external-sources to follow those directives. Keeps the
-# canonical --severity=error/--shell=bash and adds the flag.
-[processor.shellcheck]
-args = ["--severity=error", "--shell=bash", "--external-sources"]
-
-# The requirements processor derives requirements.txt by scanning imports in
-# the python src_dirs. This repo has no python sources besides config/, whose
-# only third-party import is pyclassifiers - so the build tooling that the
-# Makefile and pydmt invoke as commands (never imported) was dropped from
-# requirements.txt, and CI died with "make: pymakehelper: No such file or
-# directory". List them explicitly; keep in sync with config/shared.py.
-[processor.requirements]
-extra = ["pydmt", "pymakehelper", "pycmdtools", "pylint", "pytest", "mypy", "ruff"]
