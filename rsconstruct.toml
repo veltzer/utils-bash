@@ -5,6 +5,22 @@
 src_dirs = ["src"]
 args = ["--severity=error", "--shell=bash"]
 
+# ─── python ──────────────────────────────────────────────────────────────────
+
+# src/ is all bash, so the python linters only cover the helper scripts.
+
+[processor.ruff]
+src_dirs = ["scripts"]
+
+[processor.pylint]
+src_dirs = ["scripts"]
+
+[processor.mypy]
+src_dirs = ["scripts"]
+# This repo names the config .mypy.ini, which mypy reads but which does not
+# match the processor's default dep_auto of "mypy.ini".
+dep_inputs = [".mypy.ini"]
+
 # ─── toml / yaml / json ──────────────────────────────────────────────────────
 
 [processor.taplo]
