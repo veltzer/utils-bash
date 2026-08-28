@@ -1,0 +1,6 @@
+# Tool configuration only — this repo is not an installable package.
+
+[tool.mypy]
+mypy_path = "src:python:scripts"
+explicit_package_bases = true
+namespace_packages = true
