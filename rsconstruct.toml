@@ -2,7 +2,6 @@
 
 [processor.shellcheck]
 src_dirs = ["src"]
-args = ["--severity=error", "--shell=bash"]
 
 # ─── python ──────────────────────────────────────────────────────────────────
 
@@ -25,3 +24,8 @@ src_dirs = ["."]
 # lint the GitHub Actions workflow files with actionlint
 [processor.actionlint]
 src_dirs = [".github/workflows"]
+
+# ─── markdown ────────────────────────────────────────────────────────────────
+
+[processor.rumdl]
+src_files = ["README.md"]
