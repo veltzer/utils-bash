@@ -36,12 +36,21 @@ rscalendar
 rsconstruct
 rscontacts
 rsdedup
+rsear
+rsevo
 rsimagetag
+rslily
+rsmarkdownlint
+rsmermaid
 rsmultigit
+rspandoc
 rspass
+rspdfoverlay
 rsshell
+rssite
 rsslide
 rsspell
+rssvglint
 rstube
 rstype
 "
@@ -87,6 +96,7 @@ trap "rm -rf '${tmpdir}'" EXIT
 installed=0
 updated=0
 current=0
+missing=0
 
 for tool in ${TOOLS}
 do
@@ -94,6 +104,7 @@ do
 	if ! tag=$(gh release view --repo "${OWNER}/${tool}" --json tagName --jq .tagName 2> /dev/null)
 	then
 		echo "${tool}: no release found, skipping" >&2
+		missing=$((missing + 1))
 		continue
 	fi
 	remote_version="${tag#v}"
@@ -142,4 +153,4 @@ do
 	fi
 done
 
-echo "${installed} installed, ${updated} updated, ${current} already current"
+echo "${installed} installed, ${updated} updated, ${current} already current, ${missing} without a release"
