@@ -116,17 +116,21 @@ sync_one() {
 			echo "  local:  $(echo "${want_topics}" | paste -sd' ' -)"
 			echo "  github: $(echo "${have_topics}" | paste -sd' ' -)"
 			if [[ "${DRY_RUN}" == "0" ]]; then
-				# --add-topic is additive; clear first so removed keywords
-				# actually leave GitHub, then add the desired set.
+				# Remove only topics that are NOT wanted, and add only those
+				# not already present. A topic in both lists must be left
+				# alone: gh applies --remove-topic and --add-topic in one
+				# call and the remove wins, which would drop a shared topic.
 				local args=()
 				local t
 				while IFS= read -r t; do
-					[[ -n "${t}" ]] && args+=(--remove-topic "${t}")
+					[[ -n "${t}" ]] || continue
+					grep -qxF "${t}" <<<"${want_topics}" || args+=(--remove-topic "${t}")
 				done <<<"${have_topics}"
 				while IFS= read -r t; do
-					[[ -n "${t}" ]] && args+=(--add-topic "${t}")
+					[[ -n "${t}" ]] || continue
+					grep -qxF "${t}" <<<"${have_topics}" || args+=(--add-topic "${t}")
 				done <<<"${want_topics}"
-				gh repo edit "${repo}" "${args[@]}" >/dev/null
+				[[ ${#args[@]} -gt 0 ]] && gh repo edit "${repo}" "${args[@]}" >/dev/null
 			fi
 		fi
 	fi
