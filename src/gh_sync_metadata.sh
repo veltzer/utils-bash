@@ -1,18 +1,21 @@
 #!/bin/bash -eu
 
-# Sync a repository's GitHub metadata (description and topics) from its local
-# config/project.lua, printing only the fields that actually differ.
+# Sync a repository's GitHub metadata (description, topics, and the
+# wiki/issues/projects feature policy), printing only what actually differs.
 #
-# Source of truth is config/project.lua in the repo:
+# Source of truth for description and topics is config/project.lua in the repo:
 #   NAME              -- the repository name (must match the GitHub repo)
 #   DESCRIPTION_SHORT -- becomes the GitHub "description"
 #   KEYWORDS          -- a lua list, becomes the GitHub "topics"
 #
-# For each of description and topics: if GitHub already matches the local
-# value, nothing is printed and nothing is changed. If they differ, the
-# difference is printed and GitHub is updated to match the local file. A repo
-# whose local value is empty/absent is left alone (the file is the source of
-# truth, and "unset locally" is not the same as "clear it on GitHub").
+# The feature policy is a fixed fleet default, not read from the repo:
+#   wiki = off, issues = on, projects = off.
+#
+# For each field: if GitHub already matches, nothing is printed and nothing is
+# changed. If it differs, the difference is printed and GitHub is updated. A
+# description or topic set that is empty/absent locally is left alone (the file
+# is the source of truth, and "unset locally" is not the same as "clear it on
+# GitHub"); the feature policy is always enforced since it is not repo-specific.
 #
 # Usage:
 #   gh_sync_metadata.sh            # every repo the owner has (same as --all)
@@ -36,6 +39,11 @@
 OWNER="${GH_OWNER:-veltzer}"
 DRY_RUN="${DRY_RUN:-0}"
 BASE_DIR="${GH_BASE_DIR:-${HOME}/git}"
+
+# Fixed fleet feature policy: wiki off, issues on, projects off.
+readonly POLICY_WIKI="false"
+readonly POLICY_ISSUES="true"
+readonly POLICY_PROJECTS="false"
 
 die() {
 	echo "$1" >&2
@@ -132,6 +140,28 @@ sync_one() {
 				done <<<"${want_topics}"
 				[[ ${#args[@]} -gt 0 ]] && gh repo edit "${repo}" "${args[@]}" >/dev/null
 			fi
+		fi
+	fi
+
+	# --- feature policy --------------------------------------------------
+	# Fixed fleet default (wiki off, issues on, projects off). Only the
+	# flags that differ from the current GitHub state are sent.
+	local have_features
+	have_features="$(gh repo view "${repo}" \
+		--json hasWikiEnabled,hasIssuesEnabled,hasProjectsEnabled \
+		--jq '"\(.hasWikiEnabled) \(.hasIssuesEnabled) \(.hasProjectsEnabled)"')"
+	local have_wiki have_issues have_projects
+	read -r have_wiki have_issues have_projects <<<"${have_features}"
+	local fargs=()
+	[[ "${have_wiki}" != "${POLICY_WIKI}" ]] && fargs+=(--enable-wiki="${POLICY_WIKI}")
+	[[ "${have_issues}" != "${POLICY_ISSUES}" ]] && fargs+=(--enable-issues="${POLICY_ISSUES}")
+	[[ "${have_projects}" != "${POLICY_PROJECTS}" ]] && fargs+=(--enable-projects="${POLICY_PROJECTS}")
+	if [[ ${#fargs[@]} -gt 0 ]]; then
+		echo "${name}: features"
+		echo "  want:   wiki=${POLICY_WIKI} issues=${POLICY_ISSUES} projects=${POLICY_PROJECTS}"
+		echo "  github: wiki=${have_wiki} issues=${have_issues} projects=${have_projects}"
+		if [[ "${DRY_RUN}" == "0" ]]; then
+			gh repo edit "${repo}" "${fargs[@]}" >/dev/null
 		fi
 	fi
 }
