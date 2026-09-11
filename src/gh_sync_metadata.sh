@@ -15,14 +15,27 @@
 # truth, and "unset locally" is not the same as "clear it on GitHub").
 #
 # Usage:
-#   gh_sync_metadata.sh            # act on the repo in the current directory
-#   gh_sync_metadata.sh DIR ...    # act on each named repo directory
+#   gh_sync_metadata.sh            # every repo the owner has (same as --all)
+#   gh_sync_metadata.sh --all      # every repo the owner has, checked out
+#                                  #   under the base dir
+#   gh_sync_metadata.sh .          # just the repo in the current directory
+#   gh_sync_metadata.sh DIR ...    # each named repo directory
 #   DRY_RUN=1 gh_sync_metadata.sh  # print differences but change nothing
+#
+# --all lists the owner's repos with `gh repo list` and acts on each that has
+# a checkout under the base dir (a repo with no local checkout is reported and
+# skipped, since project.lua is the source of truth and lives in the checkout).
+#
+# Environment:
+#   GH_OWNER     GitHub owner/user whose repos to sync   (default: veltzer)
+#   GH_BASE_DIR  directory the repos are checked out under (default: ~/git)
+#   DRY_RUN=1    print differences but make no changes
 #
 # Requires: gh (authenticated), jq, lua5.4.
 
 OWNER="${GH_OWNER:-veltzer}"
 DRY_RUN="${DRY_RUN:-0}"
+BASE_DIR="${GH_BASE_DIR:-${HOME}/git}"
 
 die() {
 	echo "$1" >&2
@@ -119,10 +132,27 @@ sync_one() {
 	fi
 }
 
-if [[ $# -eq 0 ]]; then
-	sync_one "."
+# Act on every repo the owner has, resolving each to a checkout under BASE_DIR.
+sync_all() {
+	local name dir
+	while IFS= read -r name; do
+		[[ -n "${name}" ]] || continue
+		dir="${BASE_DIR}/${name}"
+		if [[ ! -d "${dir}" ]]; then
+			echo "${name}: no checkout at ${dir}, skipping" >&2
+			continue
+		fi
+		sync_one "${dir}"
+	done < <(gh repo list "${OWNER}" --no-archived --source --limit 1000 \
+		--json name --jq '.[].name')
+}
+
+# Default (no args) is --all: every repo the owner has.
+if [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--all" ) ]]; then
+	sync_all
 else
 	for d in "$@"; do
+		[[ "${d}" == "--all" ]] && { sync_all; continue; }
 		sync_one "${d}"
 	done
 fi
