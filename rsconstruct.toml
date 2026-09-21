@@ -14,8 +14,6 @@ src_dirs = ["src"]
 [processor.ruff]
 src_dirs = ["scripts"]
 
-[processor.pylint]
-src_dirs = ["scripts"]
 
 [processor.mypy]
 src_dirs = ["scripts"]
