@@ -10,6 +10,12 @@ three things it does:
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # count number of rc packages...
 count=$(dpkg --list | grep "^rc" | tr -s " " | cut -d " " -f 2 | wc -l)
 # make sure that there are packages like that...

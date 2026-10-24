@@ -20,6 +20,12 @@
 # Cloud Run issues and renews the certificate itself and has to see the
 # origin directly.
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 if [[ ! -r .gcp.conf ]]
 then
 	echo "${0}: no .gcp.conf in $(pwd); run from the repository root" >&2

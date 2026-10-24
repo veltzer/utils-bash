@@ -8,6 +8,12 @@ then sorting everything.
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 find by_name -mindepth 2 -maxdepth 2 -and -type d > name_list.txt
 rm name_list_count.txt
 while IFS= read -r line

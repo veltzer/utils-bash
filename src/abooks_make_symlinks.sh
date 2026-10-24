@@ -6,6 +6,12 @@ This script will create symlinks so that you could access a piece by it's name o
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # remove all old links...
 rm -f by_title_name/*
 for x in by_name/*/* by_organization/*/*

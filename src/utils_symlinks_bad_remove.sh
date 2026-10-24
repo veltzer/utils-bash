@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # this is a small script to find bad symbolic links and printout their
 # names.
 # TODO: rewrite this script in python to be more extendble and possible

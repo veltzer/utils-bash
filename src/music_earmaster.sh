@@ -6,6 +6,12 @@ This script runs earmaster for you
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # this is to suspend pulseaudio (not really needed)
 pasuspender -- wine /home/mark/.wine/drive_c/Program\ Files/EarMaster\ Pro\ 5/Ear50.exe 2> /dev/null &
 # this is because timidity server is refusing to run on ubuntu so I just run it myself...

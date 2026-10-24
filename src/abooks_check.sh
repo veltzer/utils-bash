@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # first check that we are in the right folder
 if [[ ! -d by_name ]]
 then

@@ -6,6 +6,12 @@ This script updates your system
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 FIX_MISSING="0"
 
 #if test $USER != 'root'

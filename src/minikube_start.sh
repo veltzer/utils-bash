@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # We are passing "driver=docker" here but minikube will detect docker usually so it's not a must
 # the --keep-context is to keep minikube from overwriting ~/.kube/config
 # there is no --kubeconfig flag to "minikube start"

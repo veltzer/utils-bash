@@ -3,6 +3,12 @@
 # This script will remove all vscode extensions and then will install the exact extensions
 # listed in the local file ".vscode-extensions"
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 PROFILE_NAME=$(basename "${PWD}")
 PROFILE="${HOME}/.config/Code/User/profiles/${PROFILE_NAME}"
 EXTENSIONS_FILE=".vscode-extensions.txt"

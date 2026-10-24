@@ -16,6 +16,12 @@
 # process, so it never lands on disk. The interactive cargo() wrapper from
 # bash-bashy does the same thing, but a script does not see shell functions.
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 if ! command -v cargo-release > /dev/null
 then
 	echo "$(basename "$0"): cargo-release is not installed, run: cargo install cargo-release" >&2

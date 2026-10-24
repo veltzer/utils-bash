@@ -10,6 +10,12 @@
 # TODO: rewrite this script in python and so be more accurate and flexible.
 #
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 readarray -t pids < <(pgrep --runstates Z)
 if test "${#pids[@]}" -gt 0
 then

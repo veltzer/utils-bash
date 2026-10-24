@@ -8,6 +8,12 @@ read about all the "--exclude-tag*" flags and see why this is the best one
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 temp="/tmp/homedir.tar.gz"
 target_dir="${HOME}/backups"
 target="${target_dir}/homedir.tar.gz"

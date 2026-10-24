@@ -16,6 +16,12 @@ sudo aptitude install -y ant # uncomment if you don't have ant
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 CVSROOT=:pserver:anonymous:anonymous@dev.w3.org:/sources/public cvs checkout 2002/css-validator
 mkdir "2002/css-validator/lib"
 TOMCAT6_VERSION="6.0.37"

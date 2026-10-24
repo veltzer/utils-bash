@@ -4,6 +4,12 @@
 # disabled. Reads .gcp.conf for the gcloud configuration when run from a
 # repository root; otherwise the active configuration is used.
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 if [[ -r .gcp.conf ]]
 then
 	# shellcheck source=/dev/null

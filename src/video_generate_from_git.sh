@@ -2,6 +2,12 @@
 
 # this script generated a video from the git repository it is run in...
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # check that we have gource installed and in our path
 if ! command -v gource &> /dev/null
 then

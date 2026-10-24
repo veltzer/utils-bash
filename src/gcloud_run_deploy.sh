@@ -17,6 +17,12 @@
 # the Dockerfile and the new revision replaces the old one; Cloud Run keeps
 # revision history itself, so unlike App Engine there is nothing to clean up.
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 if [[ ! -r .gcp.conf ]]
 then
 	echo "${0}: no .gcp.conf in $(pwd); run from the repository root" >&2

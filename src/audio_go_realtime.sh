@@ -12,6 +12,12 @@ to reload them once we are done with recording.
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 sudo /etc/init.d/apache2 stop
 sudo /etc/init.d/postfix stop
 #sudo /etc/init.d/atop stop

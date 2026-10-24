@@ -3,6 +3,12 @@
 # List all pads on a system
 # This script does not work
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 for device_id in $(xinput list --id-only)
 do
 	# echo "${device_id}"

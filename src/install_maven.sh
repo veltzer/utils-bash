@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # Fetch the latest Maven version from the Apache Maven download page
 download_page=$(curl -s https://maven.apache.org/download.cgi)
 

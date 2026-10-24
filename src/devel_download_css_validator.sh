@@ -6,6 +6,12 @@ The script is stolen from http://stackoverflow.com/questions/1137884/is-there-an
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 set -e
 
 mkdir -p lib

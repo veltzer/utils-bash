@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # Stamp what is about to be deployed so the app can serve it back (e.g. via
 # an app/version endpoint). The GAE version id is not known before the
 # deploy; apps read it at runtime from the GAE_VERSION env var instead.

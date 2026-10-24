@@ -9,6 +9,12 @@ TODO:
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 # parameters
 DB_SOURCE=myworld
 DB_TARGET=copy_myworld

@@ -6,6 +6,12 @@ This script create the stats file which containts meta information about the col
 
 COMMENT
 
+if [ "$#" -ne 0 ]
+then
+	echo "$0: this script takes no arguments" >&2
+	exit 1
+fi
+
 file=summary.txt
 
 {
