@@ -29,6 +29,23 @@ then
 	exit 1
 fi
 
+# Only committed code is deployed: gcloud uploads the working tree, not a git
+# revision, so a dirty tree would put code on the live site that is in no
+# commit and cannot be reproduced or rolled back to. Untracked files count
+# too (they are uploaded unless ignored); ignored ones, such as the
+# build_info.json written below, do not.
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1
+then
+	echo "${0}: $(pwd) is not a git repository; only committed code is deployed" >&2
+	exit 1
+fi
+if [[ -n "$(git status --porcelain)" ]]
+then
+	echo "${0}: the working tree has uncommitted changes; commit them first:" >&2
+	git status --short >&2
+	exit 1
+fi
+
 gcp_run_args=()
 # shellcheck source=/dev/null
 source .gcp.conf
