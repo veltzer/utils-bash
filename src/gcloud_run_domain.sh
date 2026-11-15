@@ -13,7 +13,7 @@
 #   gcp_domain              the domain to map, e.g. example.com (required)
 #
 # Prerequisites, both one-time and by hand:
-#   - the service is deployed (gcloud_run_deploy.sh)
+#   - the service is deployed (gcloud_deploy.sh)
 #   - the domain is verified for your Google account (`gcloud domains verify`)
 #
 # The registrar records must be plain DNS (at Cloudflare: proxy off), since

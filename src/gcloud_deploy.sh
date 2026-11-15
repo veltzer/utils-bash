@@ -1,9 +1,10 @@
 #!/bin/bash -eu
 
-# Deploy the current repository to Cloud Run. This is the Cloud Run
-# counterpart of gcloud_app_deploy.sh (App Engine): everything service-specific
+# Deploy the current repository to Cloud Run. Everything service-specific
 # comes from the repository's .gcp.conf, so this script has no per-service
-# knowledge and every Cloud Run repo deploys the same way.
+# knowledge and every repo deploys the same way. It replaces the App Engine
+# gcloud_app_deploy.sh (no repo deploys to App Engine any more) and the
+# earlier name of this script, gcloud_run_deploy.sh.
 #
 # .gcp.conf is bash-sourced. Keys used here:
 #   gcp_configuration_name  gcloud configuration to activate (required)

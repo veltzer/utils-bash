@@ -4,7 +4,7 @@
 # .gcp.conf: enable APIs, create the service account the app runs as and
 # grant its roles, create the Cloud SQL instance, and put secrets in Secret
 # Manager. Safe to re-run: every step skips what already exists. Deploying
-# afterwards is gcloud_run_deploy.sh.
+# afterwards is gcloud_deploy.sh.
 #
 # .gcp.conf is bash-sourced. Keys used here:
 #   gcp_configuration_name     gcloud configuration to activate (required)
@@ -165,4 +165,4 @@ then
 	done
 fi
 
-echo "== done; deploy with gcloud_run_deploy.sh"
+echo "== done; deploy with gcloud_deploy.sh"

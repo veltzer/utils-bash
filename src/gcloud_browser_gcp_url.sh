@@ -11,7 +11,7 @@
 # domain change. The project-number form is the stable one Google documents;
 # the older address with a random tag keeps working but is not printed here.
 #
-# Reads the repository's .gcp.conf (see gcloud_run_deploy.sh). Keys used:
+# Reads the repository's .gcp.conf (see gcloud_deploy.sh). Keys used:
 #   gcp_configuration_name  gcloud configuration to activate (required)
 #   gcp_service             Cloud Run service name (required)
 #   gcp_region              region of the service (required)

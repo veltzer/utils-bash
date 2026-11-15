@@ -15,7 +15,7 @@
 # can use it to spot drift.
 #
 # When run from a repository root with a .gcp.conf, its gcloud
-# configuration is activated first (see gcloud_run_deploy.sh).
+# configuration is activated first (see gcloud_deploy.sh).
 #
 
 # --- Script Configuration ---

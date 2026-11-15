@@ -2,7 +2,7 @@
 
 # Open the live deployment of the current repository in the web browser.
 #
-# Reads the repository's .gcp.conf (see gcloud_run_deploy.sh): a repo with
+# Reads the repository's .gcp.conf (see gcloud_deploy.sh): a repo with
 # gcp_domain is served on that custom domain, one with gcp_service/gcp_region
 # is a Cloud Run service on its run.app address, anything else is assumed
 # to be an App Engine app. Prints the URL and opens it.
