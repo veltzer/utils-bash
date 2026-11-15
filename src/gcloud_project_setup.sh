@@ -24,7 +24,10 @@
 #                              <gcp_service>-db-pass
 #   gcp_secrets                bash array of "<secret-name>=<source>" where
 #                              source is one of
-#                                pass:<entry>       from the password store
+#                                pass:<entry>       from the password store: the
+#                                                   entry's first line (pass's
+#                                                   convention; later lines are
+#                                                   notes such as client_id:)
 #                                random:hex:<n>     n random bytes as hex
 #                                random:base64:<n>  n random bytes, base64,
 #                                                   stripped of / + =
@@ -149,7 +152,7 @@ then
 		fi
 		case "${source_spec}" in
 			pass:*)
-				pass show "${source_spec#pass:}" | tr -d '\n' | gcloud secrets versions add "${name}" --data-file -
+				pass show "${source_spec#pass:}" | head -n 1 | tr -d '\n' | gcloud secrets versions add "${name}" --data-file -
 				;;
 			random:hex:*)
 				openssl rand -hex "${source_spec#random:hex:}" | tr -d '\n' | gcloud secrets versions add "${name}" --data-file -
