@@ -13,6 +13,12 @@
 #   gcp_run_args            bash array of extra `gcloud run deploy` flags:
 #                           service account, env vars, secrets, Cloud SQL,
 #                           scaling, --[no-]allow-unauthenticated, ...
+#   gcp_job_name            optional: a Cloud Run Job deployed after the
+#                           service, from the very image the service now
+#                           runs (work the service starts in the background)
+#   gcp_job_args            bash array of extra `gcloud run jobs deploy`
+#                           flags for that job: its command, service account,
+#                           env vars, secrets, Cloud SQL, timeout, retries
 #
 # Run from the repository root, where .gcp.conf lives. Cloud Build builds
 # the Dockerfile and the new revision replaces the old one; Cloud Run keeps
@@ -48,6 +54,8 @@ then
 fi
 
 gcp_run_args=()
+gcp_job_name=""
+gcp_job_args=()
 # shellcheck source=/dev/null
 source .gcp.conf
 : "${gcp_configuration_name:?must be set in .gcp.conf}"
@@ -63,8 +71,26 @@ jq -n \
 	--arg git_describe "$(git describe --always --dirty --tags)" \
 	'{deploy_date: $deploy_date, git_describe: $git_describe}' > build_info.json
 
-exec gcloud run deploy "${gcp_service}" \
+gcloud run deploy "${gcp_service}" \
 	--source . \
 	--region "${gcp_region}" \
 	--quiet \
 	"${gcp_run_args[@]}"
+
+if [[ -z "${gcp_job_name}" ]]
+then
+	exit 0
+fi
+# The job runs the same code as the service: the image the new revision
+# runs, by digest, so a later build cannot slip in between.
+image="$(gcloud run services describe "${gcp_service}" --region "${gcp_region}" --format 'value(spec.template.spec.containers[0].image)')"
+if [[ -z "${image}" ]]
+then
+	echo "${0}: could not find the image of service ${gcp_service}" >&2
+	exit 1
+fi
+exec gcloud run jobs deploy "${gcp_job_name}" \
+	--image "${image}" \
+	--region "${gcp_region}" \
+	--quiet \
+	"${gcp_job_args[@]}"
