@@ -36,7 +36,7 @@
 # Cost warning: a Cloud SQL instance is billed per hour whether or not the
 # app is used.
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -44,7 +44,7 @@ fi
 
 if [[ ! -r .gcp.conf ]]
 then
-	echo "${0}: no .gcp.conf in $(pwd); run from the repository root" >&2
+	echo "${0}: no .gcp.conf in ${PWD}; run from the repository root" >&2
 	exit 1
 fi
 gcp_apis=()
@@ -102,15 +102,21 @@ then
 	echo "Cloud Build may act as it"
 fi
 
-# create_secret_if_missing NAME: true (0) when the secret was created now and
-# still needs its first version, false (1) when it already existed.
+# create_secret_if_missing NAME: creates the secret when it is missing and sets
+# secret_created to true when it was created now and still needs its first
+# version, false when it already existed. It always returns 0 (a failed create
+# stops the script): it is called on its own, never in a condition, so that
+# set -e stays in force inside it.
+secret_created=false
 create_secret_if_missing() {
 	if gcloud secrets describe "${1}" > /dev/null 2>&1
 	then
 		echo "secret ${1} exists"
-		return 1
+		secret_created=false
+		return 0
 	fi
 	gcloud secrets create "${1}" --replication-policy automatic
+	secret_created=true
 }
 
 if [[ -n "${gcp_sql_instance:-}" ]]
@@ -126,11 +132,14 @@ then
 	then
 		gcloud sql databases create "${gcp_db_name}" --instance "${gcp_sql_instance}"
 	fi
-	if create_secret_if_missing "${gcp_service}-db-pass"
+	create_secret_if_missing "${gcp_service}-db-pass"
+	if [[ "${secret_created}" == true ]]
 	then
-		db_pass="$(openssl rand -base64 30 | tr -d '/+=')"
+		db_pass="$(openssl rand -base64 30)"
+		db_pass="${db_pass//[\/+=]/}"
 		printf '%s' "${db_pass}" | gcloud secrets versions add "${gcp_service}-db-pass" --data-file -
-		if gcloud sql users list --instance "${gcp_sql_instance}" --format 'value(name)' | grep -qx "${gcp_db_user}"
+		sql_users="$(gcloud sql users list --instance "${gcp_sql_instance}" --format 'value(name)')"
+		if grep -qx "${gcp_db_user}" <<< "${sql_users}"
 		then
 			gcloud sql users set-password "${gcp_db_user}" --instance "${gcp_sql_instance}" --password "${db_pass}"
 		else
@@ -146,19 +155,23 @@ then
 	do
 		name="${entry%%=*}"
 		source_spec="${entry#*=}"
-		if ! create_secret_if_missing "${name}"
+		create_secret_if_missing "${name}"
+		if [[ "${secret_created}" != true ]]
 		then
 			continue
 		fi
 		case "${source_spec}" in
 			pass:*)
-				pass show "${source_spec#pass:}" | head -n 1 | tr -d '\n' | gcloud secrets versions add "${name}" --data-file -
+				secret_text="$(pass show "${source_spec#pass:}")"
+				printf '%s' "${secret_text%%$'\n'*}" | gcloud secrets versions add "${name}" --data-file -
 				;;
 			random:hex:*)
-				openssl rand -hex "${source_spec#random:hex:}" | tr -d '\n' | gcloud secrets versions add "${name}" --data-file -
+				secret_text="$(openssl rand -hex "${source_spec#random:hex:}")"
+				printf '%s' "${secret_text}" | gcloud secrets versions add "${name}" --data-file -
 				;;
 			random:base64:*)
-				openssl rand -base64 "${source_spec#random:base64:}" | tr -d '/+=\n' | gcloud secrets versions add "${name}" --data-file -
+				secret_text="$(openssl rand -base64 "${source_spec#random:base64:}")"
+				printf '%s' "${secret_text//[\/+=]/}" | gcloud secrets versions add "${name}" --data-file -
 				;;
 			*)
 				echo "${0}: unknown secret source '${source_spec}' for ${name} in gcp_secrets" >&2

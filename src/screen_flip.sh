@@ -6,7 +6,7 @@ This will flip your screen via xrandr(1)
 
 COMMENT
 
-if [ $# -ne 1 ]
+if [[ $# -ne 1 ]]
 then
 	echo "No screen id specified"
 	echo "Screens are:"

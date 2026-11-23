@@ -6,13 +6,13 @@
 # References:
 # - https://askubuntu.com/questions/636944/how-to-change-the-title-of-the-current-terminal-tab-using-only-the-command-line
 
-if [ $# -lt 1 ]
+if [[ $# -lt 1 ]]
 then
 	echo "missing title."
 	exit 1
 fi
 
-if [ $# -gt 1 ]
+if [[ $# -gt 1 ]]
 then
 	echo "too many arugment. you only need title."
 	exit 1
@@ -25,7 +25,8 @@ pty="$(tmux list-clients -F '#{client_tty}' -t "${session}")"
 # now find out which applications are using that pty
 pids=$(fuser "${pty}" 2> /dev/null)
 # find out which of them is 'konsole'
-info=$(ps --no-headers -o comm,pid "${pids}" | tr -s " " | grep "^konsole ")
+ps_out=$(ps --no-headers -o comm,pid "${pids}")
+info=$(awk '$1 == "konsole" {print $1, $2; found = 1} END {exit !found}' <<< "${ps_out}")
 # split the result and get the konsole pid
 pid="${info##* }"
 # set the title

@@ -2,7 +2,7 @@
 
 # remove all snap packages and snap itself
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -15,7 +15,7 @@ skip_re='^(core[0-9]*|bare|snapd)$'
 while true
 do
 	remaining=$(snap list 2>/dev/null | awk 'NR>1 {print $1}' | grep -Ev "${skip_re}" || true)
-	if [ -z "${remaining}" ]
+	if [[ -z "${remaining}" ]]
 	then
 		break
 	fi
@@ -26,7 +26,8 @@ do
 done
 
 # now remove the bases and snapd itself
-for x in $(snap list 2>/dev/null | awk 'NR>1 {print $1}')
+snaps=$(snap list 2>/dev/null | awk 'NR>1 {print $1}' || true)
+for x in ${snaps}
 do
 	sudo snap remove --purge "${x}"
 done

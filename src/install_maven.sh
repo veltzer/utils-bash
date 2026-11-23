@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -10,10 +10,11 @@ fi
 download_page=$(curl -s https://maven.apache.org/download.cgi)
 
 # Extract the latest version using a more specific pattern
-latest_version=$(echo "${download_page}" | grep -o "apache-maven-[0-9\.]\+" | head -n 1 | grep -o "[0-9\.]\+")
+maven_name=$(grep -m 1 -o "apache-maven-[0-9\.]\+" <<< "${download_page}")
+latest_version=$(grep -o "[0-9\.]\+" <<< "${maven_name}")
 
 # Check if a version was found
-if [ -z "${latest_version}" ]
+if [[ -z "${latest_version}" ]]
 then
     echo "Error: Could not determine the latest Maven version. Please check the Maven website or script."
     exit 1
@@ -32,7 +33,7 @@ rm "/tmp/apache-maven-${latest_version}-bin.tar.gz"
 
 # Create a nice symlink
 symlink="${HOME}/install/apache-maven"
-if [ -e "${symlink}" ]
+if [[ -e "${symlink}" ]]
 then
     # echo "${symlink} already exists. Removing..."
     rm "${symlink}"

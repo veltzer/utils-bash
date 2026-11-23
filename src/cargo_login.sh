@@ -15,7 +15,7 @@
 #   gpg agent for the commands that follow)
 # - removes any credentials file left over from the old "cargo login" way
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -26,7 +26,7 @@ echo "crates.io token is available from pass(1) entry [keys/crates.io]"
 
 cargo_home="${CARGO_HOME:-${HOME}/.cargo}"
 for f in "${cargo_home}/credentials" "${cargo_home}/credentials.toml"; do
-	if [ -e "${f}" ]; then
+	if [[ -e "${f}" ]]; then
 		rm -f "${f}"
 		echo "removed stale on-disk token copy [${f}]"
 	fi

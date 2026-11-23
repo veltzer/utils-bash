@@ -7,7 +7,7 @@ use with care
 
 COMMENT
 
-if [ $# -eq 0 ]
+if [[ $# -eq 0 ]]
 then
 	echo "Usage: $(basename "$0") FILE [FILE]..."
 	exit 1
@@ -15,14 +15,14 @@ fi
 
 for source in "$@"
 do
-	if [ -f "${source}" ]
+	if [[ -f "${source}" ]]
 	then
 		echo "Encoding ${source}"
 		base=${source%.*} # remove suffix
 		dest="${base}.ogg"
 
 		tmp="tmp.wav"
-		if [ -e "${tmp}" ]
+		if [[ -e "${tmp}" ]]
 		then
 			rm -f "${tmp}"
 		fi
@@ -34,7 +34,7 @@ do
 		stat=$?
 		rm -f "${tmp}"
 
-		if [ "${stat}" -ne 0 ]
+		if [[ "${stat}" -ne 0 ]]
 		then
 			echo "Error ${stat}"
 		fi

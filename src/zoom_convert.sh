@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -11,7 +11,7 @@ do
 	dir=$(dirname "${x}")
 	extension="${x##*.}"
 	# echo "dir is ${dir}"
-	new=$(echo "${dir}" | cut -d " " -f1,2 | sed "s/-//g" | sed "s/\.//g" | sed s"/ /-/")
+	new=$(sed -E -e 's/^([^ ]*)( [^ ]*)?.*/\1\2/' -e "s/-//g" -e "s/\.//g" -e "s/ /-/" <<< "${dir}")
 	final="${new}.${extension}"
 	mv "${x}" "${final}"
 done

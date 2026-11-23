@@ -1,13 +1,13 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
 fi
 
 # shellcheck disable=SC2154
-if [ -z "${http_proxy}" ] || [ -z "${https_proxy}" ]
+if [[ -z "${http_proxy}" ]] || [[ -z "${https_proxy}" ]]
 then
 	echo "This script must be called when proxy variables are set"
 	exit 1

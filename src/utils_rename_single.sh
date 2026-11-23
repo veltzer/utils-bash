@@ -10,7 +10,7 @@ References:
 
 COMMENT
 
-if [ "$#" -eq 0 ]
+if [[ "$#" -eq 0 ]]
 then
 	echo "$0: use with at least one argument"
 	exit 1

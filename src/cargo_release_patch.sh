@@ -16,7 +16,7 @@
 # process, so it never lands on disk. The interactive cargo() wrapper from
 # bash-bashy does the same thing, but a script does not see shell functions.
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -28,4 +28,5 @@ then
 	exit 1
 fi
 
-CARGO_REGISTRY_TOKEN="$(pass show keys/crates.io)" exec cargo release patch --execute --no-confirm
+crates_token=$(pass show keys/crates.io)
+CARGO_REGISTRY_TOKEN="${crates_token}" exec cargo release patch --execute --no-confirm

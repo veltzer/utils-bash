@@ -16,14 +16,11 @@
 user="${USER}"
 password=$(pass show "passwords/mysql/${user}")
 
-options() {
-	local f
-	for f in /etc/my.cnf /etc/mysql/my.cnf "${HOME}/.my.cnf"; do
-		if [ -r "${f}" ]; then
-			cat "${f}"
-		fi
-	done
-	printf '[client]\nuser=%s\npassword=%s\n' "${user}" "${password}"
-}
-
-exec mysql --defaults-file=<(options) "$@"
+config=""
+for f in /etc/my.cnf /etc/mysql/my.cnf "${HOME}/.my.cnf"; do
+	if [[ -r "${f}" ]]; then
+		config+="$(< "${f}")"$'\n'
+	fi
+done
+config+=$(printf '[client]\nuser=%s\npassword=%s\n' "${user}" "${password}")
+exec mysql --defaults-file=<(printf '%s\n' "${config}") "$@"

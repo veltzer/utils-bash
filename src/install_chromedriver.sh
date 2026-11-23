@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -15,7 +15,8 @@ rm -f /tmp/chromedriver_linux64.zip || true
 
 # Extract the corresponding ChromeDriver version
 # chromedriver_version=$(echo "${json_data}" | jq -r '.versions[-1]["version"]')
-chromedriver_version=$(google-chrome --version | grep -o '[0-9.]\+')
+chrome_version_text=$(google-chrome --version)
+chromedriver_version=$(grep -o '[0-9.]\+' <<< "${chrome_version_text}")
 # echo "version is [${chromedriver_version}]"
 
 # Construct the download URL

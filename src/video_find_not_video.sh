@@ -7,13 +7,13 @@ You can pass a depth parameter to it
 
 COMMENT
 
-if [ "$#" -gt 1 ]
+if [[ "$#" -gt 1 ]]
 then
 	echo "$0: use with at most one argument [level=1]"
 	exit 1
 fi
 
-if [ "$#" -eq 0 ]
+if [[ "$#" -eq 0 ]]
 then
 	depth=1
 else

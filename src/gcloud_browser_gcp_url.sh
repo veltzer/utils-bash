@@ -23,7 +23,7 @@ path="${1:-}"
 
 if [[ ! -r .gcp.conf ]]
 then
-	echo "${0}: no .gcp.conf in $(pwd); run from the repository root" >&2
+	echo "${0}: no .gcp.conf in ${PWD}; run from the repository root" >&2
 	exit 1
 fi
 # shellcheck source=/dev/null

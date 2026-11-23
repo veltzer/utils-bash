@@ -3,7 +3,7 @@
 # This script will remove all vscode extensions and then will install the exact extensions
 # listed in the local file ".vscode-extensions"
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -13,7 +13,7 @@ PROFILE_NAME=$(basename "${PWD}")
 PROFILE="${HOME}/.config/Code/User/profiles/${PROFILE_NAME}"
 EXTENSIONS_FILE=".vscode-extensions.txt"
 
-if [ -f "${PROFILE}" ]
+if [[ -f "${PROFILE}" ]]
 then
 	echo "the profile [${PROFILE}] exists. removing it."
 	rm -rf "${PROFILE}"
@@ -31,7 +31,7 @@ echo "Installing extensions into [${PROFILE_NAME}]..."
 # Read each line from extensions.txt and install
 while read -r extension
 do
-	if [ -n "${extension}" ]
+	if [[ -n "${extension}" ]]
 	then
 		echo "Installing [${extension}]..."
 		code --install-extension "${extension}" --profile "${PROFILE_NAME}"

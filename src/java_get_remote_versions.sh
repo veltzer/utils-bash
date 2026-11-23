@@ -6,10 +6,11 @@ This script shows you what jdk/jre java versions are there in the ubuntu reposit
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
 fi
 
-apt-cache search openjdk | grep -- -jdk
+jdk_search=$(apt-cache search openjdk)
+grep -- -jdk <<< "${jdk_search}"

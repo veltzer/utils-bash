@@ -5,7 +5,7 @@
 # References:
 # - https://stackoverflow.com/questions/35797906/kubernetes-list-all-running-pods-name
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1

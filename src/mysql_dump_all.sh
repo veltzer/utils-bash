@@ -12,7 +12,7 @@ TODO:
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -22,7 +22,9 @@ fi
 source ~/.myworld.sh
 : "${PASS:?PASS must be set}"
 
-databases=$(mysql -u "${USER}" -p"${PASS}" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
+database_table=$(mysql -u "${USER}" -p"${PASS}" -e "SHOW DATABASES;")
+database_table=${database_table//[| ]/}
+databases=$(grep -v Database <<< "${database_table}")
 
 for db in ${databases}
 do

@@ -2,7 +2,7 @@
 
 # this script generated a video from the git repository it is run in...
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -14,6 +14,7 @@ then
 	echo "gource could not be found, please install it and make sure it is in your path"
 	exit 1
 fi
+set -o pipefail
 xvfb-run -a -s "-screen 0 1280x720x24" \
 	gource \
 	--output-ppm-stream - \

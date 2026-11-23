@@ -2,7 +2,7 @@
 
 # Show all resources in my kubernetes cluister
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1

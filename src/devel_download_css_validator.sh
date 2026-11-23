@@ -6,7 +6,7 @@ The script is stolen from http://stackoverflow.com/questions/1137884/is-there-an
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -26,7 +26,7 @@ http://repo1.maven.org/maven2/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar xer
 http://repo1.maven.org/maven2/nu/validator/htmlparser/htmlparser/1.2.1/htmlparser-1.2.1.jar\
 " | while read -r url shortname
 do
-	if [ -z "${shortname}" ]
+	if [[ -z "${shortname}" ]]
 	then
 		shortname="${url##*/}"
 	fi

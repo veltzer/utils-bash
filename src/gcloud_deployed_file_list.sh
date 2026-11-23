@@ -8,14 +8,16 @@
 # fi
 # version="$1"
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
 fi
 
 # get the latest version deployed
-version=$(gcloud app versions list --format=json | jq -r ".[0].id")
+versions_json=$(gcloud app versions list --format=json)
+version=$(jq -r ".[0].id" <<< "${versions_json}")
 
 service="default"
-gcloud app versions describe "${version}" --service "${service}" --format=json | jq -r ".deployment.files | keys[]"
+version_json=$(gcloud app versions describe "${version}" --service "${service}" --format=json)
+jq -r ".deployment.files | keys[]" <<< "${version_json}"

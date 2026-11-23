@@ -6,7 +6,7 @@ This script create the stats file which containts meta information about the col
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -17,12 +17,12 @@ file=summary.txt
 {
 echo -n
 echo -n "number of authors: "
-find . -mindepth 2 -maxdepth 2 -and -type d | wc -l
+{ find . -mindepth 2 -maxdepth 2 -and -type d || true; } | wc -l
 echo -n "number of works: "
-find . -mindepth 3 -and -type d | wc -l
+{ find . -mindepth 3 -and -type d || true; } | wc -l
 echo -n "number of files: "
-find . -mindepth 4 -and -type f | wc -l
+{ find . -mindepth 4 -and -type f || true; } | wc -l
 echo -n "size of collection: "
-du -hs . | cut -f 1
+{ du -hs . || true; } | cut -f 1
 } > "${file}"
 tree -L 2 by_name > list.txt

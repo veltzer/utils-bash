@@ -6,7 +6,7 @@ This script create the stats file which containts meta information about the col
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -20,11 +20,11 @@ suffs=(chm tar.bz2 pdf ps html dvi lit doc djvu zip rtf txt pdb mht rar jpg js g
 {
 	echo -n > "${file}"
 	echo -n "number of authors: "
-	find . -mindepth 2 -maxdepth 2 -and -type d | wc -l
+	{ find . -mindepth 2 -maxdepth 2 -and -type d || true; } | wc -l
 	echo -n "number of works: "
-	find . -mindepth 2 -and -type f | wc -l
+	{ find . -mindepth 2 -and -type f || true; } | wc -l
 	echo -n "size of collection: "
-	du -hs . | cut -f 1
+	{ du -hs . || true; } | cut -f 1
 } > "${file}"
 # this is old code that counts files per file type.
 # since there is just one file type now I don't need it
@@ -32,7 +32,7 @@ suffs=(chm tar.bz2 pdf ps html dvi lit doc djvu zip rtf txt pdb mht rar jpg js g
 for suff in "${suffs[@]}"
 do
 	echo -n "number of ${suff}: "
-	num=$(find . -mindepth 2 -and -type f -and -name "*.${suff}" | wc -l)
+	num=$({ find . -mindepth 2 -and -type f -and -name "*.${suff}" || true; } | wc -l)
 	echo "${num}"
 	((sum+=num))
 done

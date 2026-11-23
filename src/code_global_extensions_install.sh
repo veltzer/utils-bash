@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -10,7 +10,7 @@ fi
 #
 echo "removing all extensions"
 rm -rf "${HOME}/.vscode/extensions"
-if [ -f ".vscode-extensions.txt" ]
+if [[ -f ".vscode-extensions.txt" ]]
 then
 	while read -r extension
 	do

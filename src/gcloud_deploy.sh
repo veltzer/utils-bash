@@ -24,7 +24,7 @@
 # the Dockerfile and the new revision replaces the old one; Cloud Run keeps
 # revision history itself, so unlike App Engine there is nothing to clean up.
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -32,7 +32,7 @@ fi
 
 if [[ ! -r .gcp.conf ]]
 then
-	echo "${0}: no .gcp.conf in $(pwd); run from the repository root" >&2
+	echo "${0}: no .gcp.conf in ${PWD}; run from the repository root" >&2
 	exit 1
 fi
 
@@ -43,10 +43,11 @@ fi
 # build_info.json written below, do not.
 if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1
 then
-	echo "${0}: $(pwd) is not a git repository; only committed code is deployed" >&2
+	echo "${0}: ${PWD} is not a git repository; only committed code is deployed" >&2
 	exit 1
 fi
-if [[ -n "$(git status --porcelain)" ]]
+porcelain=$(git status --porcelain)
+if [[ -n "${porcelain}" ]]
 then
 	echo "${0}: the working tree has uncommitted changes; commit them first:" >&2
 	git status --short >&2
@@ -66,9 +67,11 @@ export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
 # Stamp what is about to be deployed so the app can serve it back (e.g. via
 # an app/version endpoint). The Cloud Run revision name is not known before
 # the deploy; apps read it at runtime from the K_REVISION env var instead.
+deploy_date=$(date --utc --iso-8601=seconds)
+git_describe=$(git describe --always --dirty --tags)
 jq -n \
-	--arg deploy_date "$(date --utc --iso-8601=seconds)" \
-	--arg git_describe "$(git describe --always --dirty --tags)" \
+	--arg deploy_date "${deploy_date}" \
+	--arg git_describe "${git_describe}" \
 	'{deploy_date: $deploy_date, git_describe: $git_describe}' > build_info.json
 
 gcloud run deploy "${gcp_service}" \

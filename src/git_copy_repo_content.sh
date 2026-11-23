@@ -8,4 +8,7 @@ fi
 
 from=$1
 to=$2
-(cd "${from}" && git archive --format=tar HEAD) | (cd "${to}" && tar xf -)
+archive=$(mktemp)
+trap 'rm -f "${archive}"' EXIT
+git -C "${from}" archive --format=tar HEAD > "${archive}"
+tar -C "${to}" -xf "${archive}"

@@ -8,7 +8,7 @@ then sorting everything.
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -18,7 +18,7 @@ find by_name -mindepth 2 -maxdepth 2 -and -type d > name_list.txt
 rm name_list_count.txt
 while IFS= read -r line
 do
-	count=$(find "${line}" -type f | wc -l)
+	count=$({ find "${line}" -type f || true; } | wc -l)
 	echo "${line} ${count}" >> name_list_count.txt
 done < name_list.txt
 sort name_list_count.txt -r -n -k 2 > name_list_count_sorted.txt

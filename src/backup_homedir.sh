@@ -8,7 +8,7 @@ read about all the "--exclude-tag*" flags and see why this is the best one
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -18,7 +18,7 @@ temp="/tmp/homedir.tar.gz"
 target_dir="${HOME}/backups"
 target="${target_dir}/homedir.tar.gz"
 
-if [ -f "${target}" ]
+if [[ -f "${target}" ]]
 then
 	echo "removing backup already in your homedir"
 	rm "${target}"

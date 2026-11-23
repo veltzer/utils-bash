@@ -6,7 +6,7 @@ This script updates your system
 
 COMMENT
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -26,7 +26,7 @@ sudo apt-get update
 # sudo apt-get -y dist-upgrades
 # sudo apt-get -y full-upgrade
 # this will install kept back packages as well
-if [ "${FIX_MISSING}" == "1" ]
+if [[ "${FIX_MISSING}" == "1" ]]
 then
 	sudo aptitude -y safe-upgrade -o "APT::Get::Fix-Missing=true"
 	sudo apt-get -y upgrade --fix-missing

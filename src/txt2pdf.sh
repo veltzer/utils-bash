@@ -12,7 +12,7 @@ References:
 
 COMMENT
 
-if [ $# -ne 2 ]
+if [[ $# -ne 2 ]]
 then
 	echo "Usage: $0 [input.txt] [output.pdf]"
 	exit 1

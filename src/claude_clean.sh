@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-if [ "$#" -ne 0 ]
+if [[ "$#" -ne 0 ]]
 then
 	echo "$0: this script takes no arguments" >&2
 	exit 1
@@ -11,7 +11,8 @@ set -euo pipefail
 
 CLAUDE_DIR="${HOME}/.claude"
 
-echo "Claude dir size: $(du -sh "${CLAUDE_DIR}" 2>/dev/null | cut -f1)"
+size=$(du -sh "${CLAUDE_DIR}" 2>/dev/null || true)
+echo "Claude dir size: ${size%%$'\t'*}"
 echo "Cleaning all sessions..."
 
 rm -rf "${CLAUDE_DIR}/projects"
@@ -21,4 +22,5 @@ echo "Cleaned sessions"
 rm -rf "${CLAUDE_DIR}/tasks"
 echo "Cleaned tasks"
 
-echo "Done. Size now: $(du -sh "${CLAUDE_DIR}" 2>/dev/null | cut -f1)"
+size=$(du -sh "${CLAUDE_DIR}" 2>/dev/null || true)
+echo "Done. Size now: ${size%%$'\t'*}"
