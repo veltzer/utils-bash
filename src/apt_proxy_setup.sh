@@ -6,7 +6,6 @@ then
 	exit 1
 fi
 
-# shellcheck disable=SC2154
 if [[ -z "${http_proxy}" ]] || [[ -z "${https_proxy}" ]]
 then
 	echo "This script must be called when proxy variables are set"
