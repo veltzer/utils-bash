@@ -8,5 +8,6 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${BLOGDIR:?BLOGDIR must be set}"
 
 sudo chown -R www-data.www-data "${BLOGDIR}/wp-content/uploads"

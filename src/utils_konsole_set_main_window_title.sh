@@ -1,4 +1,5 @@
 #!/bin/bash -eu
+: "${TMUX:?TMUX must be set}"
 
 # This will set the title of the current terminal window
 #

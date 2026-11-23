@@ -20,6 +20,7 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${PASS:?PASS must be set}"
 
 databases=$(mysql -u "${USER}" -p"${PASS}" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database)
 

@@ -8,5 +8,6 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${BLOGDIR:?BLOGDIR must be set}"
 
 sudo chown -R root.root "${BLOGDIR}"

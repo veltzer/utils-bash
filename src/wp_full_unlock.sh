@@ -10,6 +10,7 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${BLOGDIR:?BLOGDIR must be set}"
 
 sudo chown -R www-data.www-data "${BLOGDIR}"
 #sudo chmod 666 ${HTACCESS}

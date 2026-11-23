@@ -17,6 +17,8 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${DB:?DB must be set}"
+: "${PASS:?PASS must be set}"
 
 # parameters...
 CHARSET='utf8'

@@ -66,7 +66,7 @@ def do_install(source: str, target: str, doit: bool, debug: bool) -> str:
 
 def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug: bool) -> dict:
     """symlink entries of source_folder into target_folder
-    
+
     kind selects which entries to install:
     'python_packages' -> directories (ignoring __pycache__)
     'perl_modules' -> files ending in .pm
@@ -75,21 +75,21 @@ def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug
     stats = {"removed_stale": 0, "created": 0, "replaced": 0, "unchanged": 0, "skipped": 0}
     source_folder = os.path.abspath(os.path.expanduser(source_folder))
     target_folder = os.path.abspath(os.path.expanduser(target_folder))
-    
+
     if not os.path.isdir(source_folder):
         return stats  # Some repos won't have all types of source folders
-        
+
     stats["removed_stale"] = unlink_stale(target_folder, source_folder, doit, debug)
-    
+
     installed_any = False
     for entry in sorted(os.listdir(source_folder)):
         if entry in {"__init__.py", "__pycache__"}:
             continue
-            
+
         source = os.path.join(source_folder, entry)
         is_dir = os.path.isdir(source)
         is_pm = entry.endswith(".pm")
-        
+
         if kind == "python_packages":
             if not is_dir:
                 continue
@@ -101,7 +101,7 @@ def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug
                 continue
         else:
             continue
-            
+
         if not installed_any:
             if not os.path.isdir(target_folder):
                 if debug:
@@ -109,10 +109,10 @@ def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug
                 if doit:
                     os.makedirs(target_folder)
             installed_any = True
-                
+
         res = do_install(source, os.path.join(target_folder, entry), doit, debug)
         stats[res] += 1
-        
+
     return stats
 
 
@@ -142,17 +142,17 @@ def main() -> None:
     parser.add_argument(
         "--quiet", action="store_true", help="do not print what is being done"
     )
-    
+
     args = parser.parse_args()
     doit = not args.dry_run
     debug = not args.quiet
-    
+
     stats1 = install(args.source_scripts, args.target_scripts, "scripts", doit, debug)
     stats2 = install(args.source_packages, args.target_packages, "python_packages", doit, debug)
     stats3 = install(args.source_modules, args.target_modules, "perl_modules", doit, debug)
-    
+
     total_stats = {k: stats1[k] + stats2[k] + stats3[k] for k in stats1}
-    
+
     print("\n--- Installation Statistics ---")
     print(f"removed [{total_stats['removed_stale']}] stale symlinks")
     print(f"created [{total_stats['created']}] new symlinks")

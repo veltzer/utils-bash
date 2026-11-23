@@ -8,5 +8,6 @@ fi
 
 # shellcheck source=/dev/null
 source ~/.myworld.sh
+: "${BLOGDIR:?BLOGDIR must be set}"
 
 find "${BLOGDIR}" -not -user root -or -not -group root
