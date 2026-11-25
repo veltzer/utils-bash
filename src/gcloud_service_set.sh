@@ -48,7 +48,7 @@ main() {
   then
     # shellcheck source=/dev/null
     source .gcp.conf
-    export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name:?must be set in .gcp.conf}"
+    export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project:?must be set in .gcp.conf}"
   fi
 
   local project_id

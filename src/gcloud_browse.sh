@@ -31,8 +31,8 @@ then
 fi
 # shellcheck source=/dev/null
 source .gcp.conf
-: "${gcp_configuration_name:?must be set in .gcp.conf}"
-export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
+: "${gcp_project:?must be set in .gcp.conf}"
+export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project}"
 
 if [[ -n "${gcp_domain:-}" ]]
 then
@@ -40,7 +40,7 @@ then
 elif [[ -n "${gcp_service:-}" ]]
 then
 	: "${gcp_region:?must be set in .gcp.conf}"
-	project="$(gcloud config get-value project 2> /dev/null)"
+	project="${gcp_project}"
 	number="$(gcloud projects describe "${project}" --format 'value(projectNumber)')"
 	url="https://${gcp_service}-${number}.${gcp_region}.run.app"
 else

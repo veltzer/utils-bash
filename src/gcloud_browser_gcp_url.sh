@@ -12,7 +12,7 @@
 # the older address with a random tag keeps working but is not printed here.
 #
 # Reads the repository's .gcp.conf (see gcloud_deploy.sh). Keys used:
-#   gcp_configuration_name  gcloud configuration to activate (required)
+#   gcp_project             project ID; the gcloud configuration of that name is activated (required)
 #   gcp_service             Cloud Run service name (required)
 #   gcp_region              region of the service (required)
 #
@@ -28,12 +28,12 @@ then
 fi
 # shellcheck source=/dev/null
 source .gcp.conf
-: "${gcp_configuration_name:?must be set in .gcp.conf}"
+: "${gcp_project:?must be set in .gcp.conf}"
 : "${gcp_service:?must be set in .gcp.conf}"
 : "${gcp_region:?must be set in .gcp.conf}"
-export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
+export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project}"
 
-project="$(gcloud config get-value project 2> /dev/null)"
+project="${gcp_project}"
 number="$(gcloud projects describe "${project}" --format 'value(projectNumber)')"
 url="https://${gcp_service}-${number}.${gcp_region}.run.app"
 if [[ -n "${path}" ]]

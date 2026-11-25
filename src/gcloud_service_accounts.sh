@@ -14,7 +14,7 @@ if [[ -r .gcp.conf ]]
 then
 	# shellcheck source=/dev/null
 	source .gcp.conf
-	export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name:?must be set in .gcp.conf}"
+	export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project:?must be set in .gcp.conf}"
 fi
 
 project=$(gcloud config get-value project 2> /dev/null || true)

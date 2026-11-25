@@ -7,7 +7,7 @@
 # earlier name of this script, gcloud_run_deploy.sh.
 #
 # .gcp.conf is bash-sourced. Keys used here:
-#   gcp_configuration_name  gcloud configuration to activate (required)
+#   gcp_project             project ID; the gcloud configuration of that name is activated (required)
 #   gcp_service             Cloud Run service name (required)
 #   gcp_region              region to deploy to (required)
 #   gcp_run_args            bash array of extra `gcloud run deploy` flags:
@@ -59,10 +59,10 @@ gcp_job_name=""
 gcp_job_args=()
 # shellcheck source=/dev/null
 source .gcp.conf
-: "${gcp_configuration_name:?must be set in .gcp.conf}"
+: "${gcp_project:?must be set in .gcp.conf}"
 : "${gcp_service:?must be set in .gcp.conf}"
 : "${gcp_region:?must be set in .gcp.conf}"
-export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
+export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project}"
 
 # Stamp what is about to be deployed so the app can serve it back (e.g. via
 # an app/version endpoint). The Cloud Run revision name is not known before

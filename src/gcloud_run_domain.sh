@@ -7,7 +7,7 @@
 # later.
 #
 # .gcp.conf is bash-sourced. Keys used here:
-#   gcp_configuration_name  gcloud configuration to activate (required)
+#   gcp_project             project ID; the gcloud configuration of that name is activated (required)
 #   gcp_service             Cloud Run service name (required)
 #   gcp_region              region of the service (required)
 #   gcp_domain              the domain to map, e.g. example.com (required)
@@ -33,11 +33,11 @@ then
 fi
 # shellcheck source=/dev/null
 source .gcp.conf
-: "${gcp_configuration_name:?must be set in .gcp.conf}"
+: "${gcp_project:?must be set in .gcp.conf}"
 : "${gcp_service:?must be set in .gcp.conf}"
 : "${gcp_region:?must be set in .gcp.conf}"
 : "${gcp_domain:?must be set in .gcp.conf}"
-export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
+export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project}"
 
 echo "== domain mapping ${gcp_domain} -> ${gcp_service} (${gcp_region})"
 if ! gcloud beta run domain-mappings describe --domain "${gcp_domain}" --region "${gcp_region}" > /dev/null 2>&1

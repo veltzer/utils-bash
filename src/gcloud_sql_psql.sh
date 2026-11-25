@@ -8,7 +8,7 @@
 # work, as does an interactive session with no arguments.
 #
 # .gcp.conf is bash-sourced. Keys used here:
-#   gcp_configuration_name  gcloud configuration to activate (required)
+#   gcp_project             project ID; the gcloud configuration of that name is activated (required)
 #   gcp_sql_instance        Cloud SQL instance (required)
 #   gcp_db_name, gcp_db_user database and user (required)
 #   gcp_db_pass_secret      Secret Manager secret holding the user's password
@@ -26,11 +26,11 @@ then
 fi
 # shellcheck source=/dev/null
 source .gcp.conf
-: "${gcp_configuration_name:?must be set in .gcp.conf}"
+: "${gcp_project:?must be set in .gcp.conf}"
 : "${gcp_sql_instance:?must be set in .gcp.conf}"
 : "${gcp_db_name:?must be set in .gcp.conf}"
 : "${gcp_db_user:?must be set in .gcp.conf}"
-export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_configuration_name}"
+export CLOUDSDK_ACTIVE_CONFIG_NAME="${gcp_project}"
 secret="${gcp_db_pass_secret:-${gcp_service:?must be set in .gcp.conf}-db-pass}"
 
 # The Cloud SQL Auth Proxy and the postgres client are not part of the base SDK.
