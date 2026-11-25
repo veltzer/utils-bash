@@ -75,6 +75,17 @@ then
 fi
 gcloud services enable "${apis[@]}"
 
+# `gcloud run deploy --source` builds as the compute default service account.
+# Projects created since 2024 no longer give it Editor, so it gets the one
+# role a source deploy needs.
+echo "== build service account"
+gcloud projects add-iam-policy-binding "${project}" \
+	--member "serviceAccount:${number}-compute@developer.gserviceaccount.com" \
+	--role roles/run.builder \
+	--condition None \
+	--quiet > /dev/null 2>&1
+echo "granted roles/run.builder to ${number}-compute@developer.gserviceaccount.com"
+
 if [[ -n "${gcp_service_account:-}" ]]
 then
 	echo "== service account ${gcp_service_account}"
