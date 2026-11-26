@@ -25,3 +25,6 @@ search-path = [
     "scripts",
     ".",
 ]
+
+[tool.pyrefly.errors]
+no-any-return = "error"
