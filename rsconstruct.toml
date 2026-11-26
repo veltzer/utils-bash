@@ -21,7 +21,7 @@ src_dirs = ["scripts"]
 # ─── toml / yaml / json ──────────────────────────────────────────────────────
 
 [processor.checker.taplo]
-src_files = [".rumdl.toml", "pyproject.toml", "rsconstruct.toml"]
+src_files = [".ruff.toml", ".rumdl.toml", "pyproject.toml", "rsconstruct.toml"]
 
 # lint the Lua configuration with luacheck (policy: .luacheckrc)
 [processor.checker.iluacheck]
