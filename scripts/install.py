@@ -21,7 +21,7 @@ import site
 import sys
 
 
-def unlink_stale(target_folder: str, source_folder: str, doit: bool, debug: bool) -> int:
+def unlink_stale(target_folder: str, source_folder: str, *, doit: bool, debug: bool) -> int:
     """remove dead links in target_folder which point back into source_folder"""
     removed = 0
     if not os.path.isdir(target_folder):
@@ -42,7 +42,7 @@ def unlink_stale(target_folder: str, source_folder: str, doit: bool, debug: bool
     return removed
 
 
-def do_install(source: str, target: str, doit: bool, debug: bool) -> str:
+def do_install(source: str, target: str, *, doit: bool, debug: bool) -> str:
     """install a single symlink, replacing whatever link is already there"""
     replaced = False
     if os.path.islink(target):
@@ -64,7 +64,7 @@ def do_install(source: str, target: str, doit: bool, debug: bool) -> str:
     return "replaced" if replaced else "created"
 
 
-def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug: bool) -> dict:
+def install(source_folder: str, target_folder: str, kind: str, *, doit: bool, debug: bool) -> dict:
     """symlink entries of source_folder into target_folder
 
     kind selects which entries to install:
@@ -79,7 +79,7 @@ def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug
     if not os.path.isdir(source_folder):
         return stats  # Some repos won't have all types of source folders
 
-    stats["removed_stale"] = unlink_stale(target_folder, source_folder, doit, debug)
+    stats["removed_stale"] = unlink_stale(target_folder, source_folder, doit=doit, debug=debug)
 
     installed_any = False
     for entry in sorted(os.listdir(source_folder)):
@@ -110,7 +110,7 @@ def install(source_folder: str, target_folder: str, kind: str, doit: bool, debug
                     os.makedirs(target_folder)
             installed_any = True
 
-        res = do_install(source, os.path.join(target_folder, entry), doit, debug)
+        res = do_install(source, os.path.join(target_folder, entry), doit=doit, debug=debug)
         stats[res] += 1
 
     return stats
@@ -147,9 +147,9 @@ def main() -> None:
     doit = not args.dry_run
     debug = not args.quiet
 
-    stats1 = install(args.source_scripts, args.target_scripts, "scripts", doit, debug)
-    stats2 = install(args.source_packages, args.target_packages, "python_packages", doit, debug)
-    stats3 = install(args.source_modules, args.target_modules, "perl_modules", doit, debug)
+    stats1 = install(args.source_scripts, args.target_scripts, "scripts", doit=doit, debug=debug)
+    stats2 = install(args.source_packages, args.target_packages, "python_packages", doit=doit, debug=debug)
+    stats3 = install(args.source_modules, args.target_modules, "perl_modules", doit=doit, debug=debug)
 
     total_stats = {k: stats1[k] + stats2[k] + stats3[k] for k in stats1}
 
