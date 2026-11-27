@@ -19,6 +19,7 @@ import os
 import os.path
 import site
 import sys
+from typing import Any
 
 
 def unlink_stale(target_folder: str, source_folder: str, *, doit: bool, debug: bool) -> int:
@@ -64,7 +65,7 @@ def do_install(source: str, target: str, *, doit: bool, debug: bool) -> str:
     return "replaced" if replaced else "created"
 
 
-def install(source_folder: str, target_folder: str, kind: str, *, doit: bool, debug: bool) -> dict:
+def install(source_folder: str, target_folder: str, kind: str, *, doit: bool, debug: bool) -> dict[str, Any]:
     """symlink entries of source_folder into target_folder
 
     kind selects which entries to install:
